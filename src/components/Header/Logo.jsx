@@ -16,10 +16,13 @@ const Logo = () => {
 
   const descRef = useRef(null);
 
-  useEscapeKey(descRef, (element) => {
-    element.blur();
-  });
+  const handleBlur = useCallback((element) => {
+    if (element) {
+      element.blur();
+    }
+  }, []);
 
+  useEscapeKey(descRef, handleBlur);
   return (
     <>
       <button

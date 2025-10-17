@@ -1,3 +1,4 @@
+import "./FooterLower.css";
 import Terms from "./Terms";
 import Privacy from "./Privacy";
 import Copyright from "./Copyright";

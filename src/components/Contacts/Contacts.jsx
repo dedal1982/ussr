@@ -31,9 +31,14 @@ const Contacts = ({ className }) => {
 
   const descRef = useRef(null);
 
-  useEscapeKey(descRef, (element) => {
-    element.blur();
-  });
+  const handleBlur = useCallback((element) => {
+    if (element) {
+      element.blur();
+    }
+  }, []);
+
+  // Передаем реф и обработчик в хук
+  useEscapeKey(descRef, handleBlur);
 
   return (
     <>

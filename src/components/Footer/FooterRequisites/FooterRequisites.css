@@ -1,0 +1,44 @@
+.footer__top {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  z-index: 3;
+}
+@media screen and (max-width: 960px) {
+  .footer__top {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+.footer__contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+@media screen and (max-width: 767px) {
+  .footer__contacts {
+    gap: 20px;
+  }
+}
+.footer__contacts-list {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  color: #d5d5d5;
+  z-index: 3;
+}
+.footer__contacts-list li {
+  font-family: "Montserrat", sans-serif;
+  font-weight: normal;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.bank-list {
+  text-align: end;
+  cursor: pointer;
+}
+@media screen and (max-width: 960px) {
+  .bank-list {
+    text-align: start;
+  }
+}
