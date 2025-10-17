@@ -3,6 +3,7 @@ import Bmx from "./Bmx";
 import Skate from "./Skate";
 import Roller from "./Roller";
 import Contacts from "../Contacts/Contacts";
+import SocialLinks from "../SocialLinks/SocialLinks";
 
 const Main = () => {
   return (
@@ -12,8 +13,9 @@ const Main = () => {
           <Bmx />
           <Skate />
           <Roller />
-          <Contacts className="contacts-mobile" />
         </div>
+        <SocialLinks />
+        <Contacts className="contacts-mobile" />
       </div>
     </div>
   );

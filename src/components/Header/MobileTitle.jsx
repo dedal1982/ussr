@@ -1,6 +1,10 @@
 const MobileTitle = () => {
   return (
-    <div className="top-title" aria-label="Приключения скоро начнутся">
+    <div
+      className="top-title"
+      role="img"
+      aria-label="Приключения скоро начнутся"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 940 660"

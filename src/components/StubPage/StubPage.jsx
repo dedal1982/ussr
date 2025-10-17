@@ -1,4 +1,4 @@
-function StubPage() {
+const StubPage = () => {
   return (
     <div className="stub-page">
       <div className="stub-container">
@@ -18,6 +18,6 @@ function StubPage() {
       </div>
     </div>
   );
-}
+};
 
 export default StubPage;

@@ -1,5 +1,4 @@
 #root {
-  max-width: 1920px;
   width: 100%;
   flex: 1;
   display: flex;
@@ -10,6 +9,10 @@
   background-size: cover;
   background-position: top center;
   color: #d5d5d5;
+}
+.page {
+  max-width: 1920px;
+  width: 100%;
 }
 .lock {
   overflow: hidden;
