@@ -1,0 +1,124 @@
+.contacts {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  z-index: 3;
+  transition: all 0.3s ease-out;
+}
+.contacts-mobile {
+  display: none;
+}
+.contacts:hover .contacts-name,
+.contacts:focus .contacts-name {
+  color: #5eafa4;
+  border-bottom: 1px solid #5eafa4;
+}
+.contacts:hover .contacts-phones li a,
+.contacts:focus .contacts-phones li a {
+  color: #5eafa4;
+}
+.contacts:hover .contacts-phones li span,
+.contacts:focus .contacts-phones li span {
+  background: #5eafa4;
+}
+.contacts:hover .contacts-phones li:not(:last-child) span::before,
+.contacts:focus .contacts-phones li:not(:last-child) span::before {
+  background: #5eafa4;
+}
+.contacts:hover .contacts-name::before,
+.contacts:focus .contacts-name::before {
+  background: #5eafa4;
+}
+.contacts-name {
+  width: 340px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Buyan", sans-serif;
+  font-weight: normal;
+  font-size: 40px;
+  text-transform: uppercase;
+  color: #d5d5d5;
+  border-bottom: 1px solid #d5d5d5;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+.contacts-name::before {
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  content: "";
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #d5d5d5;
+}
+.contacts-name:hover {
+  color: rgb(242, 242, 242);
+}
+.contacts-phones {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  z-index: 3;
+  margin-top: 27px;
+}
+.contacts-phones li a {
+  font-family: "Montserrat", sans-serif;
+  font-weight: normal;
+  color: #d5d5d5;
+  transition: all 0.3s ease;
+}
+.contacts-phones li a:hover {
+  color: rgb(242, 242, 242);
+}
+.contacts-phones li {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.contacts-phones li span {
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #d5d5d5;
+  position: relative;
+}
+.contacts-phones li:not(:last-child) span::before {
+  content: "";
+  width: 1px;
+  height: 20px;
+  background: #d5d5d5;
+  position: absolute;
+  left: 3px;
+  bottom: -20px;
+}
+@media screen and (max-width: 960px) {
+  .contacts {
+    display: none;
+  }
+  .contacts-mobile {
+    display: flex;
+    flex-direction: column;
+  }
+  .contacts-phones {
+    margin: 0;
+  }
+  .contacts-phones li span {
+    display: none;
+  }
+  .contacts-name {
+    border: 1px solid transparent;
+  }
+  .contacts-name::before {
+    display: none;
+  }
+  .contacts-phones li a {
+    font-size: 20px;
+  }
+}

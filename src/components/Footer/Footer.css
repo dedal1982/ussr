@@ -1,0 +1,115 @@
+.footer {
+  flex: 0 0 auto;
+  background: transparent;
+}
+.footer__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 30px;
+  box-sizing: border-box;
+}
+@media screen and (max-width: 960px) {
+  .footer__wrapper {
+    gap: 30px;
+  }
+}
+.footer__top {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  z-index: 3;
+}
+@media screen and (max-width: 960px) {
+  .footer__top {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+.footer__contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+@media screen and (max-width: 767px) {
+  .footer__contacts {
+    gap: 20px;
+  }
+}
+.footer__contacts-list {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  color: #d5d5d5;
+  z-index: 3;
+}
+.footer__contacts-list li {
+  font-family: "Montserrat", sans-serif;
+  font-weight: normal;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.bank-list {
+  text-align: end;
+  cursor: pointer;
+}
+@media screen and (max-width: 960px) {
+  .bank-list {
+    text-align: start;
+  }
+}
+.footer__copyright {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+.footer__copyright-item {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+}
+@media screen and (max-width: 767px) {
+  .footer__copyright-item {
+    flex-direction: column;
+  }
+}
+.footer__link {
+  font-family: "Montserrat", sans-serif;
+  font-weight: normal;
+  color: #d5d5d5;
+  cursor: pointer;
+  display: block;
+  padding: 10px 7.5px 0px 7.5px;
+  transition: all 0.3s ease;
+}
+.footer__link:hover,
+.footer__link:focus {
+  color: #566ebf;
+}
+@media screen and (max-width: 767px) {
+  .footer__link {
+    padding: 2.5px;
+  }
+}
+.footer__copyright-bottom {
+  font-family: "Montserrat", sans-serif;
+  font-weight: normal;
+  color: #d5d5d5;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  padding: 10px;
+}
+.footer__copyright-bottom:hover,
+.footer__copyright-bottom:focus {
+  color: #f7a3ab;
+}
+.requisites-hover {
+  transition: color 0.3s, color 0.3s;
+}
+
+.requisites-hover.active {
+  color: #807f53;
+}
