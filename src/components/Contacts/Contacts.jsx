@@ -1,5 +1,5 @@
 import "./Contacts.css";
-import { useState, useRef } from "react";
+import { useState, useCallback, useRef } from "react";
 import { useEscapeKey } from "../../hooks/useEscapeKey";
 import ModalWrapper from "../ModalWrapper/ModalWrapper";
 import ContactsPopup from "../Popups/ContactsPopup";
@@ -25,9 +25,9 @@ const Contacts = ({ className }) => {
     setModalOpen(true);
   };
 
-  const handleCloseModal = () => {
+  const handleCloseModal = useCallback(() => {
     setModalOpen(false);
-  };
+  }, []);
 
   const descRef = useRef(null);
 
