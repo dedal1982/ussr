@@ -1,11 +1,10 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useCallback, memo } from "react";
 import { createPortal } from "react-dom";
 import "./ModalWrapper.css";
 
-const Overlay = ({ children, onClose }) => {
+const Overlay = memo(({ children, onClose }) => {
   const overlayRef = useRef(null);
 
-  // Обработка клика вне содержимого
   const handleOverlayClick = (e) => {
     e.stopPropagation();
     if (overlayRef.current && e.target === overlayRef.current) {
@@ -13,14 +12,12 @@ const Overlay = ({ children, onClose }) => {
     }
   };
 
-  // Обработка нажатия ESC
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape") {
         onClose();
       }
     };
-
     document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
@@ -33,6 +30,9 @@ const Overlay = ({ children, onClose }) => {
       className="overlay"
       ref={overlayRef}
       onClick={handleOverlayClick}
+      role="dialog"
+      aria-modal="true"
+      tabIndex={-1}
     >
       <div className="overlay-content">
         <button
@@ -66,15 +66,20 @@ const Overlay = ({ children, onClose }) => {
       </div>
     </div>
   );
-};
+});
 
-const ModalWrapper = ({ isOpen, onClose, children }) => {
+const ModalWrapper = memo(({ isOpen, onClose, children }) => {
+  // мемоизируем onClose
+  const memoizedOnClose = useCallback(() => {
+    onClose();
+  }, [onClose]);
+
   if (!isOpen) return null;
 
   return createPortal(
-    <Overlay onClose={onClose}>{children}</Overlay>,
+    <Overlay onClose={memoizedOnClose}>{children}</Overlay>,
     document.body
   );
-};
+});
 
 export default ModalWrapper;

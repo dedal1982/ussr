@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useCallback, useRef } from "react";
+import { useEscapeKey } from "../../hooks/useEscapeKey";
 import ModalWrapper from "../ModalWrapper/ModalWrapper";
 import LogoPopup from "../Popups/LogoPopup";
 
@@ -9,9 +10,15 @@ const Logo = () => {
     setModalOpen(true);
   };
 
-  const handleCloseModal = () => {
+  const handleCloseModal = useCallback(() => {
     setModalOpen(false);
-  };
+  }, []);
+
+  const descRef = useRef(null);
+
+  useEscapeKey(descRef, (element) => {
+    element.blur();
+  });
 
   return (
     <>
@@ -20,6 +27,7 @@ const Logo = () => {
         className="header__logo"
         aria-label="Честный Эйб"
         onClick={handleOpenModal}
+        ref={descRef}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

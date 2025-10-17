@@ -1,5 +1,6 @@
 import "./Contacts.css";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { useEscapeKey } from "../../hooks/useEscapeKey";
 import ModalWrapper from "../ModalWrapper/ModalWrapper";
 import ContactsPopup from "../Popups/ContactsPopup";
 
@@ -28,17 +29,21 @@ const Contacts = ({ className }) => {
     setModalOpen(false);
   };
 
+  const descRef = useRef(null);
+
+  useEscapeKey(descRef, (element) => {
+    element.blur();
+  });
+
   return (
     <>
-      <nav
-        className={`contacts ${className || ""}`}
-        aria-label="Контакты"
-        tabIndex={0}
-      >
+      <nav className={`contacts ${className || ""}`} aria-label="Контакты">
         <h2
           id="header-contacts"
           className="contacts-name"
           onClick={handleOpenModal}
+          tabIndex={0}
+          ref={descRef}
         >
           {contactsText}
         </h2>
