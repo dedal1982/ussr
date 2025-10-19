@@ -10,9 +10,10 @@ const App = () => {
   return (
     <div className="page">
       <Header />
+      <Main />
       <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="*" element={<NotFoundPage />} />
+        {/* <Route path="/" element={<Main />} /> */}
+        {/* <Route path="*" element={<NotFoundPage />} /> */}
       </Routes>
       <Footer />
       <CookieConsent />
