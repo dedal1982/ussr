@@ -7,8 +7,8 @@ const FooterLower = () => {
   return (
     <div className="footer__copyright">
       <ul className="footer__copyright-item">
-        <Privacy />
         <Terms />
+        <Privacy />
       </ul>
       <Copyright />
     </div>

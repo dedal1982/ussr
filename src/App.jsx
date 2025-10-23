@@ -5,15 +5,20 @@ import Main from "./components/Main/Main";
 import Footer from "./components/Footer/Footer";
 import CookieConsent from "./components/CookieConsent/CookieConsent";
 import NotFoundPage from "./components/NotFoundPage/NotFoundPage";
+import Privacy from "./components/Footer/FooterLower/Privacy";
+import Terms from "./components/Footer/FooterLower/Terms";
 
 const App = () => {
   return (
     <div className="page">
       <Header />
-      <Main />
+
       <Routes>
-        {/* <Route path="/" element={<Main />} /> */}
-        {/* <Route path="*" element={<NotFoundPage />} /> */}
+        <Route path="/" element={<Main />}>
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
+        </Route>
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
       <CookieConsent />

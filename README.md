@@ -1,16 +1,27 @@
-# React + Vite
+# ![Markdown logo](favicon.png) ООО «Честный Эйб»
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Visitors](https://visitor-badge.laobi.icu/badge?page_id=dedal1982.27092025&left_color=%23000000&right_color=%23FF6600)
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠 Использованные технологии
 
-## React Compiler
+![React](https://img.shields.io/badge/React-17.0.2-blue?logo=react&logoColor=61DAFB&style=flat)
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+- **React** — библиотека для интерфейсов, обеспечивающая динамичность и удобство разработки
 
-## Expanding the ESLint configuration
+![Vite](https://img.shields.io/badge/Vite-4.4.0-brightgreen?logo=vite&logoColor=white&style=flat)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project..
+- **Vite** — быстрый сборщик и dev-сервер для мгновенной работы
+
+![ESLint](https://img.shields.io/badge/ESLint-8.45.0-red?logo=eslint&logoColor=white&style=flat)
+
+- **ESLint** — инструмент для поддержания качества и чистоты кода
+
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow?logo=javascript&logoColor=white&style=flat)
+
+- **JavaScript (ES6+)** — язык программирования для всей логики и интерактивности
+
+---
+
+**© ООО «Честный Эйб», 2019-2025. Все права защищены.**
