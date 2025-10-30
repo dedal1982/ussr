@@ -23,8 +23,8 @@ const getCookie = (name) => {
 };
 
 const CookieConsent = () => {
-  const [isVisible, setIsVisible] = useState(true); // показывать при старте
-  const [hasAccepted, setHasAccepted] = useState(false); // для внутренней логики
+  const [isVisible, setIsVisible] = useState(true);
+  const [hasAccepted, setHasAccepted] = useState(false);
 
   const loadGoogleAnalytics = useCallback(() => {
     const script = document.createElement("script");
@@ -43,23 +43,35 @@ const CookieConsent = () => {
 
   useEffect(() => {
     const consentCookie = getCookie("cookieConsent");
+    const declineDateStr = getCookie("declineDate");
     if (consentCookie === "true") {
       loadGoogleAnalytics();
-      setIsVisible(false); // скрываем блок, если есть согласие
+      setIsVisible(false);
+    } else if (declineDateStr) {
+      const declineDate = new Date(declineDateStr);
+      const now = new Date();
+      const diffDays = (now - declineDate) / (1000 * 60 * 60 * 24);
+      if (diffDays >= 3) {
+        // прошло 3+ дней после отказа, показываем снова
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
     }
   }, [loadGoogleAnalytics]);
 
   const handleAccept = () => {
     setCookie("cookieConsent", "true", 365);
     setHasAccepted(true);
-    setIsVisible(false); // скрываем блок
+    setIsVisible(false);
     loadGoogleAnalytics();
   };
 
   const handleDecline = () => {
     setCookie("cookieConsent", "false", 365);
+    setCookie("declineDate", new Date().toISOString(), 365);
     setHasAccepted(false);
-    setIsVisible(false); // скрываем блок
+    setIsVisible(false);
   };
 
   if (!isVisible) return null;
