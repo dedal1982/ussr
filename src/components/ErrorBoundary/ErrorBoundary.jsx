@@ -3,7 +3,6 @@ import StubPage from "../StubPage/StubPage";
 
 const ErrorBoundaryWrapper = ({ children }) => {
   const handleError = (error, info) => {
-    // Можно логировать ошибку куда-то
     console.error("Ошибка в ErrorBoundary:", error, info);
   };
 

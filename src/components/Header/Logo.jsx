@@ -1,16 +1,22 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, lazy, Suspense } from "react";
 import { useEscapeKey } from "../../hooks/useEscapeKey";
-import ModalWrapper from "../ModalWrapper/ModalWrapper";
-import LogoPopup from "../Popups/LogoPopup";
+import { usePathPrefix } from "../../hooks/usePathPrefix";
+const ModalWrapper = lazy(() => import("../ModalWrapper/ModalWrapper"));
+const LogoPopup = lazy(() => import("../Popups/LogoPopup"));
 
 const Logo = () => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const { addPrefix, removePrefix } = usePathPrefix("logo", (isPrivacyPath) => {
+    setModalOpen(isPrivacyPath);
+  });
 
   const handleOpenModal = () => {
+    addPrefix();
     setModalOpen(true);
   };
 
   const handleCloseModal = useCallback(() => {
+    removePrefix();
     setModalOpen(false);
   }, []);
 
@@ -23,6 +29,7 @@ const Logo = () => {
   }, []);
 
   useEscapeKey(descRef, handleBlur);
+
   return (
     <>
       <button
@@ -44,9 +51,13 @@ const Logo = () => {
           />
         </svg>
       </button>
-      <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal}>
-        <LogoPopup />
-      </ModalWrapper>
+      <Suspense fallback={null}>
+        {isModalOpen && (
+          <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal}>
+            <LogoPopup />
+          </ModalWrapper>
+        )}
+      </Suspense>
     </>
   );
 };

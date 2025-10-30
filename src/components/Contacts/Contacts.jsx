@@ -1,8 +1,9 @@
 import "./Contacts.css";
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, lazy, Suspense } from "react";
 import { useEscapeKey } from "../../hooks/useEscapeKey";
-import ModalWrapper from "../ModalWrapper/ModalWrapper";
-import ContactsPopup from "../Popups/ContactsPopup";
+import { usePathPrefix } from "../../hooks/usePathPrefix";
+const ModalWrapper = lazy(() => import("../ModalWrapper/ModalWrapper"));
+const ContactsPopup = lazy(() => import("../Popups/ContactsPopup"));
 
 const Contacts = ({ className }) => {
   const [contactsText, setContactsText] = useState("Контакты");
@@ -18,14 +19,21 @@ const Contacts = ({ className }) => {
   const handleContactsText = (name) => {
     setContactsText(name);
   };
-
   const [isModalOpen, setModalOpen] = useState(false);
+  const { addPrefix, removePrefix } = usePathPrefix(
+    "contacts",
+    (isPrivacyPath) => {
+      setModalOpen(isPrivacyPath);
+    }
+  );
 
   const handleOpenModal = () => {
+    addPrefix();
     setModalOpen(true);
   };
 
   const handleCloseModal = useCallback(() => {
+    removePrefix();
     setModalOpen(false);
   }, []);
 
@@ -37,7 +45,6 @@ const Contacts = ({ className }) => {
     }
   }, []);
 
-  // Передаем реф и обработчик в хук
   useEscapeKey(descRef, handleBlur);
 
   return (
@@ -107,9 +114,13 @@ const Contacts = ({ className }) => {
           </li>
         </ul>
       </nav>
-      <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal}>
-        <ContactsPopup />
-      </ModalWrapper>
+      <Suspense fallback={null}>
+        {isModalOpen && (
+          <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal}>
+            <ContactsPopup />
+          </ModalWrapper>
+        )}
+      </Suspense>
     </>
   );
 };

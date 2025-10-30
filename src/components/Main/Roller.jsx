@@ -1,16 +1,25 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, lazy, Suspense } from "react";
 import { useEscapeKey } from "../../hooks/useEscapeKey";
-import ModalWrapper from "../ModalWrapper/ModalWrapper";
-import RollerPopup from "../Popups/RollerPopup";
+import { usePathPrefix } from "../../hooks/usePathPrefix";
+const ModalWrapper = lazy(() => import("../ModalWrapper/ModalWrapper"));
+const RollerPopup = lazy(() => import("../Popups/RollerPopup"));
 
 const Roller = () => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const { addPrefix, removePrefix } = usePathPrefix(
+    "roller",
+    (isPrivacyPath) => {
+      setModalOpen(isPrivacyPath);
+    }
+  );
 
   const handleOpenModal = () => {
+    addPrefix();
     setModalOpen(true);
   };
 
   const handleCloseModal = useCallback(() => {
+    removePrefix();
     setModalOpen(false);
   }, []);
 
@@ -23,6 +32,7 @@ const Roller = () => {
   }, []);
 
   useEscapeKey(descRef, handleBlur);
+
   return (
     <>
       <button
@@ -45,9 +55,13 @@ const Roller = () => {
           />
         </svg>
       </button>
-      <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal}>
-        <RollerPopup />
-      </ModalWrapper>
+      <Suspense fallback={null}>
+        {isModalOpen && (
+          <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal}>
+            <RollerPopup />
+          </ModalWrapper>
+        )}
+      </Suspense>
     </>
   );
 };

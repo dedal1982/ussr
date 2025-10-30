@@ -1,16 +1,25 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, lazy, Suspense } from "react";
 import { useEscapeKey } from "../../hooks/useEscapeKey";
-import ModalWrapper from "../ModalWrapper/ModalWrapper";
-import SkatePopup from "../Popups/SkatePopup";
+import { usePathPrefix } from "../../hooks/usePathPrefix";
+const ModalWrapper = lazy(() => import("../ModalWrapper/ModalWrapper"));
+const SkatePopup = lazy(() => import("../Popups/SkatePopup"));
 
 const Skate = () => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const { addPrefix, removePrefix } = usePathPrefix(
+    "skate",
+    (isPrivacyPath) => {
+      setModalOpen(isPrivacyPath);
+    }
+  );
 
   const handleOpenModal = () => {
+    addPrefix();
     setModalOpen(true);
   };
 
   const handleCloseModal = useCallback(() => {
+    removePrefix();
     setModalOpen(false);
   }, []);
 
@@ -23,7 +32,6 @@ const Skate = () => {
   }, []);
 
   useEscapeKey(descRef, handleBlur);
-
   return (
     <>
       <button
@@ -41,9 +49,13 @@ const Skate = () => {
           />
         </svg>
       </button>
-      <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal}>
-        <SkatePopup />
-      </ModalWrapper>
+      <Suspense fallback={null}>
+        {isModalOpen && (
+          <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal}>
+            <SkatePopup />
+          </ModalWrapper>
+        )}
+      </Suspense>
     </>
   );
 };

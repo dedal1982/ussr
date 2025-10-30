@@ -1,19 +1,28 @@
 import "./FooterRequisites.css";
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, lazy, Suspense } from "react";
 import { useEscapeKey } from "../../../hooks/useEscapeKey";
-import ModalWrapper from "../../ModalWrapper/ModalWrapper";
-import RequisitesPopup from "../../Popups/LogoPopup";
+import { usePathPrefix } from "../../../hooks/usePathPrefix";
+const ModalWrapper = lazy(() => import("../../ModalWrapper/ModalWrapper"));
+const RequisitesPopup = lazy(() => import("../../Popups/RequisitesPopup"));
 
 const FooterRequisites = () => {
   const [active, setActive] = useState(false);
 
   const [isModalOpen, setModalOpen] = useState(false);
+  const { addPrefix, removePrefix } = usePathPrefix(
+    "requisites",
+    (isPrivacyPath) => {
+      setModalOpen(isPrivacyPath);
+    }
+  );
 
   const handleOpenModal = () => {
+    addPrefix();
     setModalOpen(true);
   };
 
   const handleCloseModal = useCallback(() => {
+    removePrefix();
     setModalOpen(false);
   }, []);
 
@@ -63,8 +72,6 @@ const FooterRequisites = () => {
             <li>КПП: 501201001</li>
           </ul>
         </div>
-
-        {/* Банковские реквизиты */}
         <ul
           className={`footer__contacts-list bank-list requisites-hover ${
             active ? "active" : ""
@@ -79,9 +86,13 @@ const FooterRequisites = () => {
           <li>БИК: 044525593</li>
         </ul>
       </div>
-      <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal}>
-        <RequisitesPopup />
-      </ModalWrapper>
+      <Suspense fallback={null}>
+        {isModalOpen && (
+          <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal}>
+            <RequisitesPopup />
+          </ModalWrapper>
+        )}
+      </Suspense>
     </>
   );
 };
