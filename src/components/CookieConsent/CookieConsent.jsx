@@ -23,7 +23,8 @@ const getCookie = (name) => {
 };
 
 const CookieConsent = () => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true); // показывать при старте
+  const [hasAccepted, setHasAccepted] = useState(false); // для внутренней логики
 
   const loadGoogleAnalytics = useCallback(() => {
     const script = document.createElement("script");
@@ -44,20 +45,21 @@ const CookieConsent = () => {
     const consentCookie = getCookie("cookieConsent");
     if (consentCookie === "true") {
       loadGoogleAnalytics();
-    } else if (!consentCookie) {
-      setIsVisible(true);
+      setIsVisible(false); // скрываем блок, если есть согласие
     }
   }, [loadGoogleAnalytics]);
 
   const handleAccept = () => {
     setCookie("cookieConsent", "true", 365);
-    setIsVisible(false);
+    setHasAccepted(true);
+    setIsVisible(false); // скрываем блок
     loadGoogleAnalytics();
   };
 
   const handleDecline = () => {
     setCookie("cookieConsent", "false", 365);
-    setIsVisible(false);
+    setHasAccepted(false);
+    setIsVisible(false); // скрываем блок
   };
 
   if (!isVisible) return null;
