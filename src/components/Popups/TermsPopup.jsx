@@ -5,7 +5,7 @@ function TermsPopup() {
   return (
     <>
       <div className="popup-image">
-        <img src={LeiDP} alt="Placeholder Image" />
+        <img src={LeiDP} alt="Placeholder Image" loading="lazy" />
       </div>
       <div className="popup-text__top">
         — Привет! Меня зовут Лей, и я — юный страж команды «HeroSkAge». Сегодня

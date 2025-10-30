@@ -5,7 +5,7 @@ function RollerPopup() {
   return (
     <>
       <div className="popup-image">
-        <img src={ReinaDP} alt="Placeholder Image" />
+        <img src={ReinaDP} alt="Placeholder Image" loading="lazy" />
       </div>
       <div className="popup-text__top">
         — Привет! Я — Рейна, и вы, наверное, уже знаете, что я не боюсь ни

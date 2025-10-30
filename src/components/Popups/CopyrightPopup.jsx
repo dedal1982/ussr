@@ -5,7 +5,7 @@ function CopyrightPopup() {
   return (
     <>
       <div className="popup-image popup-image__copyright">
-        <img src={MimiDP} alt="Placeholder Image" />
+        <img src={MimiDP} alt="Placeholder Image" loading="lazy" />
       </div>
       <div className="popup-text__top">
         — Привет, друзья! Меня зовут Мими, и я — самая младшая в команде

@@ -5,7 +5,7 @@ function SkatePopup() {
   return (
     <>
       <div className="popup-image">
-        <img src={DekmenDP} alt="Placeholder Image" />
+        <img src={DekmenDP} alt="Placeholder Image" loading="lazy" />
       </div>
       <div className="popup-text__top">
         — Привет. Это Декмен. Я не люблю долгих разговоров, но сегодня скажу то,

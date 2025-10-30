@@ -5,7 +5,7 @@ const ContactsPopup = () => {
   return (
     <>
       <div className="popup-image">
-        <img src={KimiDP} alt="Placeholder Image" />
+        <img src={KimiDP} alt="Placeholder Image" loading="lazy" />
       </div>
       <div className="popup-text__top">
         — Здравствуйте, дорогие друзья! Меня зовут Кими Иоки, и я — примкнула к

@@ -5,7 +5,7 @@ function PrivacyPopup() {
   return (
     <>
       <div className="popup-image">
-        <img src={LeiDP} alt="Placeholder Image" />
+        <img src={LeiDP} alt="Placeholder Image" loading="lazy" />
       </div>
       <div className="popup-text__top">
         — Привет! Это снова я, Лей. Здесь я расскажу вам о том, как мы заботимся

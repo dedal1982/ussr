@@ -5,7 +5,7 @@ const LogoPopup = () => {
   return (
     <>
       <div className="popup-image">
-        <img src={AikisDP} alt="Placeholder Image" />
+        <img src={AikisDP} alt="Placeholder Image" loading="lazy" />
       </div>
       <div className="popup-text popup-text__top">
         — Привет! Меня зовут Айкис, и я — не просто кот, а один из героев

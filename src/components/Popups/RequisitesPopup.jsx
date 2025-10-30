@@ -5,7 +5,7 @@ function RequisitesPopup() {
   return (
     <>
       <div className="popup-image">
-        <img src={RayDP} alt="Placeholder Image" />
+        <img src={RayDP} alt="Placeholder Image" loading="lazy" />
       </div>
       <div className="popup-text__top">
         — Приветствую. Меня зовут Рэй Уайт, и я привык работать с точностью и

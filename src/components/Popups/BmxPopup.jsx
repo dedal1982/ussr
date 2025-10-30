@@ -5,7 +5,7 @@ function BmxPopup() {
   return (
     <>
       <div className="popup-image">
-        <img src={RiverDP} alt="Placeholder Image" />
+        <img src={RiverDP} alt="Placeholder Image" loading="lazy" />
       </div>
       <div className="popup-text__top">
         — Привет, друзья! Это я, Ривер, или, как меня все называют, Дрифт. Я —
