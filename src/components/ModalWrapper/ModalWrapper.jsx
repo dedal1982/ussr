@@ -1,6 +1,6 @@
+import "./ModalWrapper.css";
 import React, { useEffect, useRef, useCallback, memo } from "react";
 import { createPortal } from "react-dom";
-import "./ModalWrapper.css";
 
 const Overlay = memo(({ children, onClose }) => {
   const overlayRef = useRef(null);

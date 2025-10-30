@@ -4,7 +4,7 @@ import Skate from "./Skate";
 import Roller from "./Roller";
 import Contacts from "../Contacts/Contacts";
 import SocialLinks from "../SocialLinks/SocialLinks";
-import useWindowWidth from "../../hooks/useWindowWidth";
+import { useWindowWidth } from "../../hooks/useWindowWidth";
 
 const Main = () => {
   const width = useWindowWidth();

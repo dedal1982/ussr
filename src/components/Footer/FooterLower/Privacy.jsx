@@ -1,15 +1,26 @@
-import { useState, useCallback, useRef, lazy, Suspense } from "react";
+import {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  lazy,
+  Suspense,
+} from "react";
 import { useEscapeKey } from "../../../hooks/useEscapeKey";
 import { usePathPrefix } from "../../../hooks/usePathPrefix";
+import Preloader from "../../Preloader/Preloader";
+
 const ModalWrapper = lazy(() => import("../../ModalWrapper/ModalWrapper"));
 const PrivacyPopup = lazy(() => import("../../Popups/PrivacyPopup"));
 
 const Privacy = () => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const pathPrefix = "privacy";
+  const [skipPreloader, setSkipPreloader] = useState(false);
   const { addPrefix, removePrefix } = usePathPrefix(
-    "privacy",
-    (isPrivacyPath) => {
-      setModalOpen(isPrivacyPath);
+    pathPrefix,
+    (isPopupPath) => {
+      setModalOpen(isPopupPath);
     }
   );
 
@@ -33,6 +44,15 @@ const Privacy = () => {
 
   useEscapeKey(descRef, handleBlur);
 
+  useEffect(() => {
+    const path = window.location.pathname;
+    if (path.includes(pathPrefix)) {
+      setSkipPreloader(true);
+    } else {
+      setSkipPreloader(false);
+    }
+  }, []);
+
   return (
     <>
       <li>
@@ -49,13 +69,14 @@ const Privacy = () => {
           «Политика конфиденциальности»
         </a>
       </li>
-      <Suspense fallback={null}>
-        {isModalOpen && (
+
+      {isModalOpen && (
+        <Suspense fallback={skipPreloader ? null : <Preloader />}>
           <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal}>
             <PrivacyPopup />
           </ModalWrapper>
-        )}
-      </Suspense>
+        </Suspense>
+      )}
     </>
   );
 };

@@ -1,14 +1,28 @@
-import { useState, useCallback, useRef, lazy, Suspense } from "react";
+import {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  lazy,
+  Suspense,
+} from "react";
 import { useEscapeKey } from "../../hooks/useEscapeKey";
 import { usePathPrefix } from "../../hooks/usePathPrefix";
+import Preloader from "../Preloader/Preloader";
+
 const ModalWrapper = lazy(() => import("../ModalWrapper/ModalWrapper"));
 const BmxPopup = lazy(() => import("../Popups/BmxPopup"));
 
 const Bmx = () => {
   const [isModalOpen, setModalOpen] = useState(false);
-  const { addPrefix, removePrefix } = usePathPrefix("bmx", (isPrivacyPath) => {
-    setModalOpen(isPrivacyPath);
-  });
+  const pathPrefix = "bmx";
+  const [skipPreloader, setSkipPreloader] = useState(false);
+  const { addPrefix, removePrefix } = usePathPrefix(
+    pathPrefix,
+    (isPopupPath) => {
+      setModalOpen(isPopupPath);
+    }
+  );
 
   const handleOpenModal = () => {
     addPrefix();
@@ -29,6 +43,16 @@ const Bmx = () => {
   }, []);
 
   useEscapeKey(descRef, handleBlur);
+
+  useEffect(() => {
+    const path = window.location.pathname;
+    if (path.includes(pathPrefix)) {
+      setSkipPreloader(true);
+    } else {
+      setSkipPreloader(false);
+    }
+  }, []);
+
   return (
     <>
       <button
@@ -46,13 +70,14 @@ const Bmx = () => {
           />
         </svg>
       </button>
-      <Suspense fallback={null}>
-        {isModalOpen && (
+
+      {isModalOpen && (
+        <Suspense fallback={skipPreloader ? null : <Preloader />}>
           <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal}>
             <BmxPopup />
           </ModalWrapper>
-        )}
-      </Suspense>
+        </Suspense>
+      )}
     </>
   );
 };

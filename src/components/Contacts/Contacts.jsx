@@ -1,7 +1,16 @@
 import "./Contacts.css";
-import { useState, useCallback, useRef, lazy, Suspense } from "react";
+import {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  lazy,
+  Suspense,
+} from "react";
 import { useEscapeKey } from "../../hooks/useEscapeKey";
 import { usePathPrefix } from "../../hooks/usePathPrefix";
+import Preloader from "../Preloader/Preloader";
+
 const ModalWrapper = lazy(() => import("../ModalWrapper/ModalWrapper"));
 const ContactsPopup = lazy(() => import("../Popups/ContactsPopup"));
 
@@ -20,10 +29,12 @@ const Contacts = ({ className }) => {
     setContactsText(name);
   };
   const [isModalOpen, setModalOpen] = useState(false);
+  const pathPrefix = "contacts";
+  const [skipPreloader, setSkipPreloader] = useState(false);
   const { addPrefix, removePrefix } = usePathPrefix(
-    "contacts",
-    (isPrivacyPath) => {
-      setModalOpen(isPrivacyPath);
+    pathPrefix,
+    (isPopupPath) => {
+      setModalOpen(isPopupPath);
     }
   );
 
@@ -46,6 +57,15 @@ const Contacts = ({ className }) => {
   }, []);
 
   useEscapeKey(descRef, handleBlur);
+
+  useEffect(() => {
+    const path = window.location.pathname;
+    if (path.includes(pathPrefix)) {
+      setSkipPreloader(true);
+    } else {
+      setSkipPreloader(false);
+    }
+  }, []);
 
   return (
     <>
@@ -114,13 +134,14 @@ const Contacts = ({ className }) => {
           </li>
         </ul>
       </nav>
-      <Suspense fallback={null}>
-        {isModalOpen && (
+
+      {isModalOpen && (
+        <Suspense fallback={skipPreloader ? null : <Preloader />}>
           <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal}>
             <ContactsPopup />
           </ModalWrapper>
-        )}
-      </Suspense>
+        </Suspense>
+      )}
     </>
   );
 };

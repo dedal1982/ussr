@@ -1,14 +1,28 @@
-import { useState, useCallback, useRef, lazy, Suspense } from "react";
+import {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  lazy,
+  Suspense,
+} from "react";
 import { useEscapeKey } from "../../hooks/useEscapeKey";
 import { usePathPrefix } from "../../hooks/usePathPrefix";
+import Preloader from "../Preloader/Preloader";
+
 const ModalWrapper = lazy(() => import("../ModalWrapper/ModalWrapper"));
 const LogoPopup = lazy(() => import("../Popups/LogoPopup"));
 
 const Logo = () => {
   const [isModalOpen, setModalOpen] = useState(false);
-  const { addPrefix, removePrefix } = usePathPrefix("logo", (isPrivacyPath) => {
-    setModalOpen(isPrivacyPath);
-  });
+  const pathPrefix = "logo";
+  const [skipPreloader, setSkipPreloader] = useState(false);
+  const { addPrefix, removePrefix } = usePathPrefix(
+    pathPrefix,
+    (isPopupPath) => {
+      setModalOpen(isPopupPath);
+    }
+  );
 
   const handleOpenModal = () => {
     addPrefix();
@@ -29,6 +43,15 @@ const Logo = () => {
   }, []);
 
   useEscapeKey(descRef, handleBlur);
+
+  useEffect(() => {
+    const path = window.location.pathname;
+    if (path.includes(pathPrefix)) {
+      setSkipPreloader(true);
+    } else {
+      setSkipPreloader(false);
+    }
+  }, []);
 
   return (
     <>
@@ -51,13 +74,14 @@ const Logo = () => {
           />
         </svg>
       </button>
-      <Suspense fallback={null}>
-        {isModalOpen && (
+
+      {isModalOpen && (
+        <Suspense fallback={skipPreloader ? null : <Preloader />}>
           <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal}>
             <LogoPopup />
           </ModalWrapper>
-        )}
-      </Suspense>
+        </Suspense>
+      )}
     </>
   );
 };

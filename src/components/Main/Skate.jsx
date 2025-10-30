@@ -1,15 +1,26 @@
-import { useState, useCallback, useRef, lazy, Suspense } from "react";
+import {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  lazy,
+  Suspense,
+} from "react";
 import { useEscapeKey } from "../../hooks/useEscapeKey";
 import { usePathPrefix } from "../../hooks/usePathPrefix";
+import Preloader from "../Preloader/Preloader";
+
 const ModalWrapper = lazy(() => import("../ModalWrapper/ModalWrapper"));
 const SkatePopup = lazy(() => import("../Popups/SkatePopup"));
 
 const Skate = () => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const pathPrefix = "skate";
+  const [skipPreloader, setSkipPreloader] = useState(false);
   const { addPrefix, removePrefix } = usePathPrefix(
-    "skate",
-    (isPrivacyPath) => {
-      setModalOpen(isPrivacyPath);
+    pathPrefix,
+    (isPopupPath) => {
+      setModalOpen(isPopupPath);
     }
   );
 
@@ -32,6 +43,16 @@ const Skate = () => {
   }, []);
 
   useEscapeKey(descRef, handleBlur);
+
+  useEffect(() => {
+    const path = window.location.pathname;
+    if (path.includes(pathPrefix)) {
+      setSkipPreloader(true);
+    } else {
+      setSkipPreloader(false);
+    }
+  }, []);
+
   return (
     <>
       <button
@@ -49,13 +70,14 @@ const Skate = () => {
           />
         </svg>
       </button>
-      <Suspense fallback={null}>
-        {isModalOpen && (
+
+      {isModalOpen && (
+        <Suspense fallback={skipPreloader ? null : <Preloader />}>
           <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal}>
             <SkatePopup />
           </ModalWrapper>
-        )}
-      </Suspense>
+        </Suspense>
+      )}
     </>
   );
 };

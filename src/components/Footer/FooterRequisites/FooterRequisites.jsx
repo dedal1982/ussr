@@ -1,7 +1,16 @@
 import "./FooterRequisites.css";
-import { useState, useCallback, useRef, lazy, Suspense } from "react";
+import {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  lazy,
+  Suspense,
+} from "react";
 import { useEscapeKey } from "../../../hooks/useEscapeKey";
 import { usePathPrefix } from "../../../hooks/usePathPrefix";
+import Preloader from "../../Preloader/Preloader";
+
 const ModalWrapper = lazy(() => import("../../ModalWrapper/ModalWrapper"));
 const RequisitesPopup = lazy(() => import("../../Popups/RequisitesPopup"));
 
@@ -9,10 +18,12 @@ const FooterRequisites = () => {
   const [active, setActive] = useState(false);
 
   const [isModalOpen, setModalOpen] = useState(false);
+  const pathPrefix = "requisites";
+  const [skipPreloader, setSkipPreloader] = useState(false);
   const { addPrefix, removePrefix } = usePathPrefix(
-    "requisites",
-    (isPrivacyPath) => {
-      setModalOpen(isPrivacyPath);
+    pathPrefix,
+    (isPopupPath) => {
+      setModalOpen(isPopupPath);
     }
   );
 
@@ -35,6 +46,15 @@ const FooterRequisites = () => {
   }, []);
 
   useEscapeKey(descRef, handleBlur);
+
+  useEffect(() => {
+    const path = window.location.pathname;
+    if (path.includes(pathPrefix)) {
+      setSkipPreloader(true);
+    } else {
+      setSkipPreloader(false);
+    }
+  }, []);
 
   return (
     <>
@@ -86,13 +106,14 @@ const FooterRequisites = () => {
           <li>БИК: 044525593</li>
         </ul>
       </div>
-      <Suspense fallback={null}>
-        {isModalOpen && (
+
+      {isModalOpen && (
+        <Suspense fallback={skipPreloader ? null : <Preloader />}>
           <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal}>
             <RequisitesPopup />
           </ModalWrapper>
-        )}
-      </Suspense>
+        </Suspense>
+      )}
     </>
   );
 };

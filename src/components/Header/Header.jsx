@@ -2,7 +2,7 @@ import "./Header.css";
 import Logo from "./Logo";
 import MobileTitle from "./MobileTitle";
 import Contacts from "../Contacts/Contacts";
-import useWindowWidth from "../../hooks/useWindowWidth";
+import { useWindowWidth } from "../../hooks/useWindowWidth";
 
 const Header = () => {
   const width = useWindowWidth();

@@ -1,15 +1,26 @@
-import { useState, useCallback, useRef, lazy, Suspense } from "react";
+import {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  lazy,
+  Suspense,
+} from "react";
 import { useEscapeKey } from "../../../hooks/useEscapeKey";
 import { usePathPrefix } from "../../../hooks/usePathPrefix";
+import Preloader from "../../Preloader/Preloader";
+
 const ModalWrapper = lazy(() => import("../../ModalWrapper/ModalWrapper"));
 const CopyrightPopup = lazy(() => import("../../Popups/CopyrightPopup"));
 
 const Copyright = () => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const pathPrefix = "copyright";
+  const [skipPreloader, setSkipPreloader] = useState(false);
   const { addPrefix, removePrefix } = usePathPrefix(
-    "copyright",
-    (isPrivacyPath) => {
-      setModalOpen(isPrivacyPath);
+    pathPrefix,
+    (isPopupPath) => {
+      setModalOpen(isPopupPath);
     }
   );
 
@@ -33,6 +44,17 @@ const Copyright = () => {
 
   useEscapeKey(descRef, handleBlur);
 
+  useEffect(() => {
+    const path = window.location.pathname;
+    if (path.includes(pathPrefix)) {
+      setSkipPreloader(true);
+    } else {
+      setSkipPreloader(false);
+    }
+  }, []);
+
+  useEscapeKey(descRef, handleBlur);
+
   return (
     <>
       <button
@@ -43,13 +65,14 @@ const Copyright = () => {
       >
         © ООО «Честный Эйб», 2019-2025
       </button>
-      <Suspense fallback={null}>
-        {isModalOpen && (
+
+      {isModalOpen && (
+        <Suspense fallback={skipPreloader ? null : <Preloader />}>
           <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal}>
             <CopyrightPopup />
           </ModalWrapper>
-        )}
-      </Suspense>
+        </Suspense>
+      )}
     </>
   );
 };
