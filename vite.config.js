@@ -7,7 +7,12 @@ import { createHtmlPlugin } from "vite-plugin-html";
 export default defineConfig({
   plugins: [
     react(),
-    viteCompression(),
+    viteCompression({
+      algorithm: "gzip",
+      ext: ".gz",
+      threshold: 10240,
+      deleteOriginFile: false,
+    }),
     vitePurgeCss({
       content: ["./index.html", "./src/**/*.jsx", "./src/**/*.tsx"],
       safelist: [],
@@ -24,6 +29,7 @@ export default defineConfig({
               rel: "preload",
               as: "style",
               href: "/assets/index-ByPdVx4C.css",
+              crossorigin: "anonymous",
             },
           },
         ],
