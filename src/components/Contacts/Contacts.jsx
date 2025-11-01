@@ -1,18 +1,7 @@
 import "./Contacts.css";
-import {
-  useState,
-  useEffect,
-  useCallback,
-  useRef,
-  lazy,
-  Suspense,
-} from "react";
-import { useEscapeKey } from "../../hooks/useEscapeKey";
-import { usePathPrefix } from "../../hooks/usePathPrefix";
-import Preloader from "../Preloader/Preloader";
-
-const ModalWrapper = lazy(() => import("../ModalWrapper/ModalWrapper"));
-const ContactsPopup = lazy(() => import("../Popups/ContactsPopup"));
+import { useState, useEffect, useCallback, useRef, Suspense } from "react";
+import { useEscapeKey } from "@/hooks/useEscapeKey";
+import { usePathPrefix } from "@/hooks/usePathPrefix";
 
 const Contacts = ({ className }) => {
   const [contactsText, setContactsText] = useState("Контакты");
@@ -26,8 +15,9 @@ const Contacts = ({ className }) => {
   };
 
   const [isModalOpen, setModalOpen] = useState(false);
+  const [ModalWrapperComponent, setModalWrapper] = useState(null);
+  const [PopupComponent, setLogoPopup] = useState(null);
   const pathPrefix = "contacts";
-  const [skipPreloader, setSkipPreloader] = useState(false);
   const { addPrefix, removePrefix } = usePathPrefix(
     pathPrefix,
     (isPopupPath) => {
@@ -35,7 +25,19 @@ const Contacts = ({ className }) => {
     }
   );
 
-  const handleOpenModal = () => {
+  const handleOpenModal = async () => {
+    if (!ModalWrapperComponent) {
+      const { default: ModalWrapper } = await import(
+        "@components/ModalWrapper/ModalWrapper"
+      );
+      setModalWrapper(() => ModalWrapper);
+    }
+    if (!PopupComponent) {
+      const { default: ContactsPopup } = await import(
+        "@components/Popups/ContactsPopup"
+      );
+      setLogoPopup(() => ContactsPopup);
+    }
     addPrefix();
     setModalOpen(true);
   };
@@ -57,9 +59,14 @@ const Contacts = ({ className }) => {
   useEffect(() => {
     const path = window.location.pathname;
     if (path.includes(pathPrefix)) {
-      setSkipPreloader(true);
-    } else {
-      setSkipPreloader(false);
+      Promise.all([
+        import("@components/ModalWrapper/ModalWrapper"),
+        import("@components/Popups/ContactsPopup"),
+      ]).then(([{ default: ModalWrapper }, { default: ContactsPopup }]) => {
+        setModalWrapper(() => ModalWrapper);
+        setLogoPopup(() => ContactsPopup);
+        setModalOpen(true);
+      });
     }
   }, []);
 
@@ -131,11 +138,14 @@ const Contacts = ({ className }) => {
         </ul>
       </nav>
 
-      {isModalOpen && (
-        <Suspense fallback={skipPreloader ? null : <Preloader />}>
-          <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal}>
-            <ContactsPopup />
-          </ModalWrapper>
+      {isModalOpen && ModalWrapperComponent && PopupComponent && (
+        <Suspense>
+          <ModalWrapperComponent
+            isOpen={isModalOpen}
+            onClose={handleCloseModal}
+          >
+            <PopupComponent />
+          </ModalWrapperComponent>
         </Suspense>
       )}
     </>

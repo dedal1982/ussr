@@ -1,22 +1,12 @@
-import {
-  useState,
-  useEffect,
-  useCallback,
-  useRef,
-  lazy,
-  Suspense,
-} from "react";
-import { useEscapeKey } from "../../../hooks/useEscapeKey";
-import { usePathPrefix } from "../../../hooks/usePathPrefix";
-import Preloader from "../../Preloader/Preloader";
-
-const ModalWrapper = lazy(() => import("../../ModalWrapper/ModalWrapper"));
-const CopyrightPopup = lazy(() => import("../../Popups/CopyrightPopup"));
+import { useState, useEffect, useCallback, useRef, Suspense } from "react";
+import { useEscapeKey } from "@/hooks/useEscapeKey";
+import { usePathPrefix } from "@/hooks/usePathPrefix";
 
 const Copyright = () => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [ModalWrapperComponent, setModalWrapper] = useState(null);
+  const [PopupComponent, setLogoPopup] = useState(null);
   const pathPrefix = "copyright";
-  const [skipPreloader, setSkipPreloader] = useState(false);
   const { addPrefix, removePrefix } = usePathPrefix(
     pathPrefix,
     (isPopupPath) => {
@@ -24,7 +14,19 @@ const Copyright = () => {
     }
   );
 
-  const handleOpenModal = () => {
+  const handleOpenModal = async () => {
+    if (!ModalWrapperComponent) {
+      const { default: ModalWrapper } = await import(
+        "@components/ModalWrapper/ModalWrapper"
+      );
+      setModalWrapper(() => ModalWrapper);
+    }
+    if (!PopupComponent) {
+      const { default: CopyrightPopup } = await import(
+        "@components/Popups/CopyrightPopup"
+      );
+      setLogoPopup(() => CopyrightPopup);
+    }
     addPrefix();
     setModalOpen(true);
   };
@@ -47,13 +49,16 @@ const Copyright = () => {
   useEffect(() => {
     const path = window.location.pathname;
     if (path.includes(pathPrefix)) {
-      setSkipPreloader(true);
-    } else {
-      setSkipPreloader(false);
+      Promise.all([
+        import("@components/ModalWrapper/ModalWrapper"),
+        import("@components/Popups/CopyrightPopup"),
+      ]).then(([{ default: ModalWrapper }, { default: CopyrightPopup }]) => {
+        setModalWrapper(() => ModalWrapper);
+        setLogoPopup(() => CopyrightPopup);
+        setModalOpen(true);
+      });
     }
   }, []);
-
-  useEscapeKey(descRef, handleBlur);
 
   return (
     <>
@@ -66,11 +71,14 @@ const Copyright = () => {
         © ООО «Честный Эйб», 2019-2025
       </button>
 
-      {isModalOpen && (
-        <Suspense fallback={skipPreloader ? null : <Preloader />}>
-          <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal}>
-            <CopyrightPopup />
-          </ModalWrapper>
+      {isModalOpen && ModalWrapperComponent && PopupComponent && (
+        <Suspense>
+          <ModalWrapperComponent
+            isOpen={isModalOpen}
+            onClose={handleCloseModal}
+          >
+            <PopupComponent />
+          </ModalWrapperComponent>
         </Suspense>
       )}
     </>

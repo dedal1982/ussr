@@ -1,22 +1,12 @@
-import {
-  useState,
-  useEffect,
-  useCallback,
-  useRef,
-  lazy,
-  Suspense,
-} from "react";
-import { useEscapeKey } from "../../../hooks/useEscapeKey";
-import { usePathPrefix } from "../../../hooks/usePathPrefix";
-import Preloader from "../../Preloader/Preloader";
-
-const ModalWrapper = lazy(() => import("../../ModalWrapper/ModalWrapper"));
-const PrivacyPopup = lazy(() => import("../../Popups/PrivacyPopup"));
+import { useState, useEffect, useCallback, useRef, Suspense } from "react";
+import { useEscapeKey } from "@/hooks/useEscapeKey";
+import { usePathPrefix } from "@/hooks/usePathPrefix";
 
 const Privacy = () => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [ModalWrapperComponent, setModalWrapper] = useState(null);
+  const [PopupComponent, setLogoPopup] = useState(null);
   const pathPrefix = "privacy";
-  const [skipPreloader, setSkipPreloader] = useState(false);
   const { addPrefix, removePrefix } = usePathPrefix(
     pathPrefix,
     (isPopupPath) => {
@@ -24,7 +14,19 @@ const Privacy = () => {
     }
   );
 
-  const handleOpenModal = () => {
+  const handleOpenModal = async () => {
+    if (!ModalWrapperComponent) {
+      const { default: ModalWrapper } = await import(
+        "@components/ModalWrapper/ModalWrapper"
+      );
+      setModalWrapper(() => ModalWrapper);
+    }
+    if (!PopupComponent) {
+      const { default: PrivacyPopup } = await import(
+        "@components/Popups/PrivacyPopup"
+      );
+      setLogoPopup(() => PrivacyPopup);
+    }
     addPrefix();
     setModalOpen(true);
   };
@@ -47,9 +49,14 @@ const Privacy = () => {
   useEffect(() => {
     const path = window.location.pathname;
     if (path.includes(pathPrefix)) {
-      setSkipPreloader(true);
-    } else {
-      setSkipPreloader(false);
+      Promise.all([
+        import("@components/ModalWrapper/ModalWrapper"),
+        import("@components/Popups/PrivacyPopup"),
+      ]).then(([{ default: ModalWrapper }, { default: PrivacyPopup }]) => {
+        setModalWrapper(() => ModalWrapper);
+        setLogoPopup(() => PrivacyPopup);
+        setModalOpen(true);
+      });
     }
   }, []);
 
@@ -70,11 +77,14 @@ const Privacy = () => {
         </a>
       </li>
 
-      {isModalOpen && (
-        <Suspense fallback={skipPreloader ? null : <Preloader />}>
-          <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal}>
-            <PrivacyPopup />
-          </ModalWrapper>
+      {isModalOpen && ModalWrapperComponent && PopupComponent && (
+        <Suspense>
+          <ModalWrapperComponent
+            isOpen={isModalOpen}
+            onClose={handleCloseModal}
+          >
+            <PopupComponent />
+          </ModalWrapperComponent>
         </Suspense>
       )}
     </>

@@ -1,22 +1,12 @@
-import {
-  useState,
-  useEffect,
-  useCallback,
-  useRef,
-  lazy,
-  Suspense,
-} from "react";
-import { useEscapeKey } from "../../hooks/useEscapeKey";
-import { usePathPrefix } from "../../hooks/usePathPrefix";
-import Preloader from "../Preloader/Preloader";
-
-const ModalWrapper = lazy(() => import("../ModalWrapper/ModalWrapper"));
-const SkatePopup = lazy(() => import("../Popups/SkatePopup"));
+import { useState, useEffect, useCallback, useRef, Suspense } from "react";
+import { useEscapeKey } from "@/hooks/useEscapeKey";
+import { usePathPrefix } from "@/hooks/usePathPrefix";
 
 const Skate = () => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [ModalWrapperComponent, setModalWrapper] = useState(null);
+  const [PopupComponent, setLogoPopup] = useState(null);
   const pathPrefix = "skate";
-  const [skipPreloader, setSkipPreloader] = useState(false);
   const { addPrefix, removePrefix } = usePathPrefix(
     pathPrefix,
     (isPopupPath) => {
@@ -24,7 +14,19 @@ const Skate = () => {
     }
   );
 
-  const handleOpenModal = () => {
+  const handleOpenModal = async () => {
+    if (!ModalWrapperComponent) {
+      const { default: ModalWrapper } = await import(
+        "@components/ModalWrapper/ModalWrapper"
+      );
+      setModalWrapper(() => ModalWrapper);
+    }
+    if (!PopupComponent) {
+      const { default: SkatePopup } = await import(
+        "@components/Popups/SkatePopup"
+      );
+      setLogoPopup(() => SkatePopup);
+    }
     addPrefix();
     setModalOpen(true);
   };
@@ -47,9 +49,14 @@ const Skate = () => {
   useEffect(() => {
     const path = window.location.pathname;
     if (path.includes(pathPrefix)) {
-      setSkipPreloader(true);
-    } else {
-      setSkipPreloader(false);
+      Promise.all([
+        import("@components/ModalWrapper/ModalWrapper"),
+        import("@components/Popups/SkatePopup"),
+      ]).then(([{ default: ModalWrapper }, { default: SkatePopup }]) => {
+        setModalWrapper(() => ModalWrapper);
+        setLogoPopup(() => SkatePopup);
+        setModalOpen(true);
+      });
     }
   }, []);
 
@@ -71,11 +78,14 @@ const Skate = () => {
         </svg>
       </button>
 
-      {isModalOpen && (
-        <Suspense fallback={skipPreloader ? null : <Preloader />}>
-          <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal}>
-            <SkatePopup />
-          </ModalWrapper>
+      {isModalOpen && ModalWrapperComponent && PopupComponent && (
+        <Suspense>
+          <ModalWrapperComponent
+            isOpen={isModalOpen}
+            onClose={handleCloseModal}
+          >
+            <PopupComponent />
+          </ModalWrapperComponent>
         </Suspense>
       )}
     </>

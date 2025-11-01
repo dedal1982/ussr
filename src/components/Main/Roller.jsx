@@ -1,22 +1,12 @@
-import {
-  useState,
-  useEffect,
-  useCallback,
-  useRef,
-  lazy,
-  Suspense,
-} from "react";
+import { useState, useEffect, useCallback, useRef, Suspense } from "react";
 import { useEscapeKey } from "../../hooks/useEscapeKey";
 import { usePathPrefix } from "../../hooks/usePathPrefix";
-import Preloader from "../Preloader/Preloader";
-
-const ModalWrapper = lazy(() => import("../ModalWrapper/ModalWrapper"));
-const RollerPopup = lazy(() => import("../Popups/RollerPopup"));
 
 const Roller = () => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [ModalWrapperComponent, setModalWrapper] = useState(null);
+  const [PopupComponent, setLogoPopup] = useState(null);
   const pathPrefix = "roller";
-  const [skipPreloader, setSkipPreloader] = useState(false);
   const { addPrefix, removePrefix } = usePathPrefix(
     pathPrefix,
     (isPopupPath) => {
@@ -24,7 +14,19 @@ const Roller = () => {
     }
   );
 
-  const handleOpenModal = () => {
+  const handleOpenModal = async () => {
+    if (!ModalWrapperComponent) {
+      const { default: ModalWrapper } = await import(
+        "@components/ModalWrapper/ModalWrapper"
+      );
+      setModalWrapper(() => ModalWrapper);
+    }
+    if (!PopupComponent) {
+      const { default: RollerPopup } = await import(
+        "@components/Popups/RollerPopup"
+      );
+      setLogoPopup(() => RollerPopup);
+    }
     addPrefix();
     setModalOpen(true);
   };
@@ -47,9 +49,14 @@ const Roller = () => {
   useEffect(() => {
     const path = window.location.pathname;
     if (path.includes(pathPrefix)) {
-      setSkipPreloader(true);
-    } else {
-      setSkipPreloader(false);
+      Promise.all([
+        import("@components/ModalWrapper/ModalWrapper"),
+        import("@components/Popups/RollerPopup"),
+      ]).then(([{ default: ModalWrapper }, { default: RollerPopup }]) => {
+        setModalWrapper(() => ModalWrapper);
+        setLogoPopup(() => RollerPopup);
+        setModalOpen(true);
+      });
     }
   }, []);
 
@@ -76,11 +83,14 @@ const Roller = () => {
         </svg>
       </button>
 
-      {isModalOpen && (
-        <Suspense fallback={skipPreloader ? null : <Preloader />}>
-          <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal}>
-            <RollerPopup />
-          </ModalWrapper>
+      {isModalOpen && ModalWrapperComponent && PopupComponent && (
+        <Suspense>
+          <ModalWrapperComponent
+            isOpen={isModalOpen}
+            onClose={handleCloseModal}
+          >
+            <PopupComponent />
+          </ModalWrapperComponent>
         </Suspense>
       )}
     </>

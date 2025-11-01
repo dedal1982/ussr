@@ -1,22 +1,12 @@
-import {
-  useState,
-  useEffect,
-  useCallback,
-  useRef,
-  lazy,
-  Suspense,
-} from "react";
-import { useEscapeKey } from "../../hooks/useEscapeKey";
-import { usePathPrefix } from "../../hooks/usePathPrefix";
-import Preloader from "../Preloader/Preloader";
-
-const ModalWrapper = lazy(() => import("../ModalWrapper/ModalWrapper"));
-const BmxPopup = lazy(() => import("../Popups/BmxPopup"));
+import { useState, useEffect, useCallback, useRef, Suspense } from "react";
+import { useEscapeKey } from "@/hooks/useEscapeKey";
+import { usePathPrefix } from "@/hooks/usePathPrefix";
 
 const Bmx = () => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [ModalWrapperComponent, setModalWrapper] = useState(null);
+  const [PopupComponent, setLogoPopup] = useState(null);
   const pathPrefix = "bmx";
-  const [skipPreloader, setSkipPreloader] = useState(false);
   const { addPrefix, removePrefix } = usePathPrefix(
     pathPrefix,
     (isPopupPath) => {
@@ -24,7 +14,17 @@ const Bmx = () => {
     }
   );
 
-  const handleOpenModal = () => {
+  const handleOpenModal = async () => {
+    if (!ModalWrapperComponent) {
+      const { default: ModalWrapper } = await import(
+        "@components/ModalWrapper/ModalWrapper"
+      );
+      setModalWrapper(() => ModalWrapper);
+    }
+    if (!PopupComponent) {
+      const { default: BmxPopup } = await import("@components/Popups/BmxPopup");
+      setLogoPopup(() => BmxPopup);
+    }
     addPrefix();
     setModalOpen(true);
   };
@@ -47,9 +47,14 @@ const Bmx = () => {
   useEffect(() => {
     const path = window.location.pathname;
     if (path.includes(pathPrefix)) {
-      setSkipPreloader(true);
-    } else {
-      setSkipPreloader(false);
+      Promise.all([
+        import("@components/ModalWrapper/ModalWrapper"),
+        import("@components/Popups/BmxPopup"),
+      ]).then(([{ default: ModalWrapper }, { default: BmxPopup }]) => {
+        setModalWrapper(() => ModalWrapper);
+        setLogoPopup(() => BmxPopup);
+        setModalOpen(true);
+      });
     }
   }, []);
 
@@ -71,11 +76,14 @@ const Bmx = () => {
         </svg>
       </button>
 
-      {isModalOpen && (
-        <Suspense fallback={skipPreloader ? null : <Preloader />}>
-          <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal}>
-            <BmxPopup />
-          </ModalWrapper>
+      {isModalOpen && ModalWrapperComponent && PopupComponent && (
+        <Suspense>
+          <ModalWrapperComponent
+            isOpen={isModalOpen}
+            onClose={handleCloseModal}
+          >
+            <PopupComponent />
+          </ModalWrapperComponent>
         </Suspense>
       )}
     </>

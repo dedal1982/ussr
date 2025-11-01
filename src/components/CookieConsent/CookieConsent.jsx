@@ -82,7 +82,7 @@ const CookieConsent = () => {
         <img
           src={CookieIconImg}
           alt="Мы используем cookie"
-          fetchpriority="high"
+          fetchPriority="high"
         />
       </div>
       <div className="cookie-buttons">

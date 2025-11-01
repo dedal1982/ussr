@@ -1,22 +1,12 @@
-import {
-  useState,
-  useEffect,
-  useCallback,
-  useRef,
-  lazy,
-  Suspense,
-} from "react";
-import { useEscapeKey } from "../../../hooks/useEscapeKey";
-import { usePathPrefix } from "../../../hooks/usePathPrefix";
-import Preloader from "../../Preloader/Preloader";
-
-const ModalWrapper = lazy(() => import("../../ModalWrapper/ModalWrapper"));
-const TermsPopup = lazy(() => import("../../Popups/TermsPopup"));
+import { useState, useEffect, useCallback, useRef, Suspense } from "react";
+import { useEscapeKey } from "@/hooks/useEscapeKey";
+import { usePathPrefix } from "@/hooks/usePathPrefix";
 
 const Terms = () => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [ModalWrapperComponent, setModalWrapper] = useState(null);
+  const [PopupComponent, setLogoPopup] = useState(null);
   const pathPrefix = "terms";
-  const [skipPreloader, setSkipPreloader] = useState(false);
   const { addPrefix, removePrefix } = usePathPrefix(
     pathPrefix,
     (isPopupPath) => {
@@ -24,7 +14,19 @@ const Terms = () => {
     }
   );
 
-  const handleOpenModal = () => {
+  const handleOpenModal = async () => {
+    if (!ModalWrapperComponent) {
+      const { default: ModalWrapper } = await import(
+        "@components/ModalWrapper/ModalWrapper"
+      );
+      setModalWrapper(() => ModalWrapper);
+    }
+    if (!PopupComponent) {
+      const { default: TermsPopup } = await import(
+        "@components/Popups/TermsPopup"
+      );
+      setLogoPopup(() => TermsPopup);
+    }
     addPrefix();
     setModalOpen(true);
   };
@@ -47,9 +49,14 @@ const Terms = () => {
   useEffect(() => {
     const path = window.location.pathname;
     if (path.includes(pathPrefix)) {
-      setSkipPreloader(true);
-    } else {
-      setSkipPreloader(false);
+      Promise.all([
+        import("@components/ModalWrapper/ModalWrapper"),
+        import("@components/Popups/TermsPopup"),
+      ]).then(([{ default: ModalWrapper }, { default: TermsPopup }]) => {
+        setModalWrapper(() => ModalWrapper);
+        setLogoPopup(() => TermsPopup);
+        setModalOpen(true);
+      });
     }
   }, []);
 
@@ -70,11 +77,14 @@ const Terms = () => {
         </a>
       </li>
 
-      {isModalOpen && (
-        <Suspense fallback={skipPreloader ? null : <Preloader />}>
-          <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal}>
-            <TermsPopup />
-          </ModalWrapper>
+      {isModalOpen && ModalWrapperComponent && PopupComponent && (
+        <Suspense>
+          <ModalWrapperComponent
+            isOpen={isModalOpen}
+            onClose={handleCloseModal}
+          >
+            <PopupComponent />
+          </ModalWrapperComponent>
         </Suspense>
       )}
     </>

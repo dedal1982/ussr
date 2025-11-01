@@ -1,22 +1,12 @@
-import {
-  useState,
-  useEffect,
-  useCallback,
-  useRef,
-  lazy,
-  Suspense,
-} from "react";
-import { useEscapeKey } from "../../hooks/useEscapeKey";
-import { usePathPrefix } from "../../hooks/usePathPrefix";
-import Preloader from "../Preloader/Preloader";
-
-const ModalWrapper = lazy(() => import("../ModalWrapper/ModalWrapper"));
-const LogoPopup = lazy(() => import("../Popups/LogoPopup"));
+import { useState, useEffect, useCallback, useRef, Suspense } from "react";
+import { useEscapeKey } from "@/hooks/useEscapeKey";
+import { usePathPrefix } from "@/hooks/usePathPrefix";
 
 const Logo = () => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [ModalWrapperComponent, setModalWrapper] = useState(null);
+  const [PopupComponent, setLogoPopup] = useState(null);
   const pathPrefix = "logo";
-  const [skipPreloader, setSkipPreloader] = useState(false);
   const { addPrefix, removePrefix } = usePathPrefix(
     pathPrefix,
     (isPopupPath) => {
@@ -24,7 +14,19 @@ const Logo = () => {
     }
   );
 
-  const handleOpenModal = () => {
+  const handleOpenModal = async () => {
+    if (!ModalWrapperComponent) {
+      const { default: ModalWrapper } = await import(
+        "@components/ModalWrapper/ModalWrapper"
+      );
+      setModalWrapper(() => ModalWrapper);
+    }
+    if (!PopupComponent) {
+      const { default: LogoPopup } = await import(
+        "@components/Popups/LogoPopup"
+      );
+      setLogoPopup(() => LogoPopup);
+    }
     addPrefix();
     setModalOpen(true);
   };
@@ -47,9 +49,14 @@ const Logo = () => {
   useEffect(() => {
     const path = window.location.pathname;
     if (path.includes(pathPrefix)) {
-      setSkipPreloader(true);
-    } else {
-      setSkipPreloader(false);
+      Promise.all([
+        import("@components/ModalWrapper/ModalWrapper"),
+        import("@components/Popups/LogoPopup"),
+      ]).then(([{ default: ModalWrapper }, { default: LogoPopup }]) => {
+        setModalWrapper(() => ModalWrapper);
+        setLogoPopup(() => LogoPopup);
+        setModalOpen(true);
+      });
     }
   }, []);
 
@@ -75,11 +82,14 @@ const Logo = () => {
         </svg>
       </button>
 
-      {isModalOpen && (
-        <Suspense fallback={skipPreloader ? null : <Preloader />}>
-          <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal}>
-            <LogoPopup />
-          </ModalWrapper>
+      {isModalOpen && ModalWrapperComponent && PopupComponent && (
+        <Suspense>
+          <ModalWrapperComponent
+            isOpen={isModalOpen}
+            onClose={handleCloseModal}
+          >
+            <PopupComponent />
+          </ModalWrapperComponent>
         </Suspense>
       )}
     </>

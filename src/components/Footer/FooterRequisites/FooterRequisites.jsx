@@ -1,25 +1,15 @@
 import "./FooterRequisites.css";
-import {
-  useState,
-  useEffect,
-  useCallback,
-  useRef,
-  lazy,
-  Suspense,
-} from "react";
+import { useState, useEffect, useCallback, useRef, Suspense } from "react";
 import { useEscapeKey } from "../../../hooks/useEscapeKey";
 import { usePathPrefix } from "../../../hooks/usePathPrefix";
-import Preloader from "../../Preloader/Preloader";
-
-const ModalWrapper = lazy(() => import("../../ModalWrapper/ModalWrapper"));
-const RequisitesPopup = lazy(() => import("../../Popups/RequisitesPopup"));
 
 const FooterRequisites = () => {
   const [active, setActive] = useState(false);
 
   const [isModalOpen, setModalOpen] = useState(false);
+  const [ModalWrapperComponent, setModalWrapper] = useState(null);
+  const [PopupComponent, setLogoPopup] = useState(null);
   const pathPrefix = "requisites";
-  const [skipPreloader, setSkipPreloader] = useState(false);
   const { addPrefix, removePrefix } = usePathPrefix(
     pathPrefix,
     (isPopupPath) => {
@@ -27,7 +17,19 @@ const FooterRequisites = () => {
     }
   );
 
-  const handleOpenModal = () => {
+  const handleOpenModal = async () => {
+    if (!ModalWrapperComponent) {
+      const { default: ModalWrapper } = await import(
+        "@components/ModalWrapper/ModalWrapper"
+      );
+      setModalWrapper(() => ModalWrapper);
+    }
+    if (!PopupComponent) {
+      const { default: RequisitesPopup } = await import(
+        "@components/Popups/RequisitesPopup"
+      );
+      setLogoPopup(() => RequisitesPopup);
+    }
     addPrefix();
     setModalOpen(true);
   };
@@ -50,9 +52,14 @@ const FooterRequisites = () => {
   useEffect(() => {
     const path = window.location.pathname;
     if (path.includes(pathPrefix)) {
-      setSkipPreloader(true);
-    } else {
-      setSkipPreloader(false);
+      Promise.all([
+        import("@components/ModalWrapper/ModalWrapper"),
+        import("@components/Popups/RequisitesPopup"),
+      ]).then(([{ default: ModalWrapper }, { default: RequisitesPopup }]) => {
+        setModalWrapper(() => ModalWrapper);
+        setLogoPopup(() => RequisitesPopup);
+        setModalOpen(true);
+      });
     }
   }, []);
 
@@ -110,11 +117,14 @@ const FooterRequisites = () => {
         </ul>
       </a>
 
-      {isModalOpen && (
-        <Suspense fallback={skipPreloader ? null : <Preloader />}>
-          <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal}>
-            <RequisitesPopup />
-          </ModalWrapper>
+      {isModalOpen && ModalWrapperComponent && PopupComponent && (
+        <Suspense>
+          <ModalWrapperComponent
+            isOpen={isModalOpen}
+            onClose={handleCloseModal}
+          >
+            <PopupComponent />
+          </ModalWrapperComponent>
         </Suspense>
       )}
     </>

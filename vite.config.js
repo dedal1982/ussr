@@ -2,6 +2,9 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import { createHtmlPlugin } from "vite-plugin-html";
 import path from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   server: {
@@ -17,19 +20,9 @@ export default defineConfig({
             tag: "link",
             attrs: {
               rel: "preload",
-              href: "/index-Bbjd3EQK.js",
-              as: "script",
-              crossorigin: "anonymous",
-            },
-            injectTo: "head",
-          },
-          {
-            tag: "link",
-            attrs: {
-              rel: "preload",
-              href: "/index-2AiFykpb.css",
+              href: "/style-DrqEVMzq.css",
               as: "style",
-              fetchpriority: "high",
+              fetchPriority: "high",
               crossorigin: "anonymous",
             },
             injectTo: "head",
@@ -40,7 +33,7 @@ export default defineConfig({
               rel: "preload",
               href: "/CookieIcon-D5mrp4Jt.svg",
               as: "image",
-              fetchpriority: "high",
+              fetchPriority: "high",
             },
             injectTo: "head",
           },
@@ -59,27 +52,18 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      "@components": path.resolve(__dirname, "./src/components"),
     },
   },
   build: {
     minify: "esbuild", // минификация JS
     target: "esnext",
-    cssCodeSplit: true,
+    cssCodeSplit: false,
     emptyOutDir: true,
     manifest: "manifest.json",
     rollupOptions: {
+      input: path.resolve(__dirname, "index.html"),
       output: {
-        manualChunks(id) {
-          if (id.includes("node_modules")) {
-            if (id.includes("react") || id.includes("react-dom")) {
-              return "react-vendor";
-            }
-            if (id.includes("lodash")) {
-              return "lodash-vendor";
-            }
-            return "vendor";
-          }
-        },
         entryFileNames: "[name]-[hash].js",
         chunkFileNames: "[name]-[hash].js",
         assetFileNames: "[name]-[hash][extname]",
