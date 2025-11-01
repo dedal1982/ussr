@@ -13,7 +13,7 @@ const Header = () => {
       <div className="header__wrapper holder">
         <Logo />
         <MobileTitle />
-        {isDesktop && <Contacts className="contacts" />}
+        {isDesktop && <Contacts />}
       </div>
     </div>
   );

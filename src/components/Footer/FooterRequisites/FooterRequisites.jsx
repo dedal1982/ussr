@@ -58,15 +58,16 @@ const FooterRequisites = () => {
 
   return (
     <>
-      <div
+      <a
+        href="#"
         id="requisites"
         className="footer__top"
-        tabIndex={0}
         onClick={handleOpenModal}
         ref={descRef}
       >
         <div className="footer__contacts">
           <ul
+            tabIndex={0}
             className={`footer__contacts-list requisites-hover ${
               active ? "active" : ""
             }`}
@@ -81,6 +82,7 @@ const FooterRequisites = () => {
             <li>д. 33, Бдок А, помещение V-13, комната 1</li>
           </ul>
           <ul
+            tabIndex={0}
             className={`footer__contacts-list requisites-hover ${
               active ? "active" : ""
             }`}
@@ -93,6 +95,7 @@ const FooterRequisites = () => {
           </ul>
         </div>
         <ul
+          tabIndex={0}
           className={`footer__contacts-list bank-list requisites-hover ${
             active ? "active" : ""
           }`}
@@ -105,7 +108,7 @@ const FooterRequisites = () => {
           <li>Корреспондентский счет: 30101810200000000593</li>
           <li>БИК: 044525593</li>
         </ul>
-      </div>
+      </a>
 
       {isModalOpen && (
         <Suspense fallback={skipPreloader ? null : <Preloader />}>

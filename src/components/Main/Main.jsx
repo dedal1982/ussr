@@ -11,7 +11,7 @@ const Main = () => {
   const isMobile = width <= 960;
 
   return (
-    <div className="main">
+    <main className="main">
       <div className="main__wrapper holder">
         <div className="main__inner">
           <Bmx />
@@ -19,9 +19,13 @@ const Main = () => {
           <Roller />
         </div>
         <SocialLinks />
-        {isMobile && <Contacts className="contacts-mobile" />}
+        {isMobile && (
+          <section>
+            <Contacts className="contacts-mobile" />
+          </section>
+        )}
       </div>
-    </div>
+    </main>
   );
 };
 

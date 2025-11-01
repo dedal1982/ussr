@@ -83,15 +83,14 @@ const CookieConsent = () => {
           src={CookieIconImg}
           alt="Мы используем cookie"
           fetchpriority="high"
-          loading="lazy"
         />
       </div>
       <div className="cookie-buttons">
         <button id="acceptBtn" onClick={handleAccept}>
-          <img src={AcceptIconImg} alt="Принять" loading="lazy" />
+          <img src={AcceptIconImg} alt="Принять" />
         </button>
         <button id="declineBtn" onClick={handleDecline}>
-          <img src={RejectIconImg} alt="Отклонить" loading="lazy" />
+          <img src={RejectIconImg} alt="Отклонить" />
         </button>
       </div>
     </div>
