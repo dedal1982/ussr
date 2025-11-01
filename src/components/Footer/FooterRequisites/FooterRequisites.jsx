@@ -1,7 +1,7 @@
 import "./FooterRequisites.css";
 import { useState, useEffect, useCallback, useRef, Suspense } from "react";
-import { useEscapeKey } from "../../../hooks/useEscapeKey";
-import { usePathPrefix } from "../../../hooks/usePathPrefix";
+import { useEscapeKey } from "@/hooks/useEscapeKey";
+import { usePathPrefix } from "@/hooks/usePathPrefix";
 
 const FooterRequisites = () => {
   const [active, setActive] = useState(false);

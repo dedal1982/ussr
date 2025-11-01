@@ -1,5 +1,5 @@
 import "./Popup.css";
-import RiverDP from "../../assets/images/Hero/Hero_3.webp";
+import RiverDP from "@/assets/images/Hero/Hero_3.webp";
 
 function BmxPopup() {
   return (

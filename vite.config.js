@@ -20,7 +20,7 @@ export default defineConfig({
             tag: "link",
             attrs: {
               rel: "preload",
-              href: "/style-DrqEVMzq.css",
+              href: "/style-G0RiFpW_.css",
               as: "style",
               fetchPriority: "high",
               crossorigin: "anonymous",
@@ -56,7 +56,7 @@ export default defineConfig({
     },
   },
   build: {
-    minify: "esbuild", // минификация JS
+    minify: "esbuild",
     target: "esnext",
     cssCodeSplit: false,
     emptyOutDir: true,

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef, Suspense } from "react";
-import { useEscapeKey } from "../../hooks/useEscapeKey";
-import { usePathPrefix } from "../../hooks/usePathPrefix";
+import { useEscapeKey } from "@/hooks/useEscapeKey";
+import { usePathPrefix } from "@/hooks/usePathPrefix";
 
 const Roller = () => {
   const [isModalOpen, setModalOpen] = useState(false);
