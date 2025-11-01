@@ -25,9 +25,6 @@ const Contacts = ({ className }) => {
     setContactsText("Контакты");
   };
 
-  const handleContactsText = (name) => {
-    setContactsText(name);
-  };
   const [isModalOpen, setModalOpen] = useState(false);
   const pathPrefix = "contacts";
   const [skipPreloader, setSkipPreloader] = useState(false);
@@ -49,7 +46,6 @@ const Contacts = ({ className }) => {
   }, []);
 
   const descRef = useRef(null);
-
   const handleBlur = useCallback((element) => {
     if (element) {
       element.blur();
@@ -70,15 +66,15 @@ const Contacts = ({ className }) => {
   return (
     <>
       <nav className={`contacts ${className || ""}`} aria-label="Контакты">
-        <h2
+        <button
           id="header-contacts"
           className="contacts-name"
           onClick={handleOpenModal}
-          tabIndex={0}
           ref={descRef}
+          aria-haspopup="dialog"
         >
           {contactsText}
-        </h2>
+        </button>
         <ul className="contacts-phones">
           <li>
             <span />
@@ -86,8 +82,8 @@ const Contacts = ({ className }) => {
               href="tel:+79165718989"
               data-name="Сайты"
               onMouseOver={() => handleMouseOver("Сайты")}
+              onFocus={() => handleMouseOver("Сайты")}
               onMouseOut={handleMouseOut}
-              onFocus={() => handleContactsText("Сайты")}
               onBlur={handleMouseOut}
             >
               +7 (916) 571-89-89
@@ -99,8 +95,8 @@ const Contacts = ({ className }) => {
               href="tel:+79255718989"
               data-name="Игры"
               onMouseOver={() => handleMouseOver("Игры")}
+              onFocus={() => handleMouseOver("Игры")}
               onMouseOut={handleMouseOut}
-              onFocus={() => handleContactsText("Игры")}
               onBlur={handleMouseOut}
             >
               +7 (925) 571-89-89
@@ -112,8 +108,8 @@ const Contacts = ({ className }) => {
               href="tel:+79645718989"
               data-name="Тестирование"
               onMouseOver={() => handleMouseOver("Тестирование")}
+              onFocus={() => handleMouseOver("Тестирование")}
               onMouseOut={handleMouseOut}
-              onFocus={() => handleContactsText("Тестирование")}
               onBlur={handleMouseOut}
             >
               +7 (964) 571-89-89
@@ -125,8 +121,8 @@ const Contacts = ({ className }) => {
               href="tel:+79855718989"
               data-name="Симбиоз"
               onMouseOver={() => handleMouseOver("Симбиоз")}
+              onFocus={() => handleMouseOver("Симбиоз")}
               onMouseOut={handleMouseOut}
-              onFocus={() => handleContactsText("Симбиоз")}
               onBlur={handleMouseOut}
             >
               +7 (985) 571-89-89

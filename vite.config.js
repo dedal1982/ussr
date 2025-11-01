@@ -2,10 +2,8 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import { createHtmlPlugin } from "vite-plugin-html";
 import path from "path";
-import { fileURLToPath } from "url";
 
 export default defineConfig({
-  // Настройки сервера
   server: {
     host: "::",
     port: 8080,
@@ -15,7 +13,27 @@ export default defineConfig({
     createHtmlPlugin({
       inject: {
         tags: [
-          // Предзагрузка критичного изображения
+          {
+            tag: "link",
+            attrs: {
+              rel: "preload",
+              href: "/index-Bbjd3EQK.js",
+              as: "script",
+              crossorigin: "anonymous",
+            },
+            injectTo: "head",
+          },
+          {
+            tag: "link",
+            attrs: {
+              rel: "preload",
+              href: "/index-2AiFykpb.css",
+              as: "style",
+              fetchpriority: "high",
+              crossorigin: "anonymous",
+            },
+            injectTo: "head",
+          },
           {
             tag: "link",
             attrs: {
@@ -26,27 +44,13 @@ export default defineConfig({
             },
             injectTo: "head",
           },
-          // Предзагрузка важного скрипта
           {
-            tag: "link",
+            tag: "script",
             attrs: {
-              rel: "preload",
-              href: "/vendor-esm.js",
-              as: "script",
+              type: "module",
+              src: "/src/main.jsx",
             },
-            injectTo: "head",
-          },
-          // Предзагрузка шрифта
-          {
-            tag: "link",
-            attrs: {
-              rel: "preload",
-              href: "/font.woff2",
-              as: "font",
-              type: "font/woff2",
-              crossorigin: "anonymous",
-            },
-            injectTo: "head",
+            injectTo: "body",
           },
         ],
       },
@@ -58,13 +62,23 @@ export default defineConfig({
     },
   },
   build: {
-    minify: "esbuild",
+    minify: "esbuild", // минификация JS
     target: "esnext",
-    cssCodeSplit: false,
+    cssCodeSplit: true,
+    emptyOutDir: true,
+    manifest: "manifest.json",
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ["react", "react-dom"],
+        manualChunks(id) {
+          if (id.includes("node_modules")) {
+            if (id.includes("react") || id.includes("react-dom")) {
+              return "react-vendor";
+            }
+            if (id.includes("lodash")) {
+              return "lodash-vendor";
+            }
+            return "vendor";
+          }
         },
         entryFileNames: "[name]-[hash].js",
         chunkFileNames: "[name]-[hash].js",
