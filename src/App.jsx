@@ -22,11 +22,11 @@ const App = () => {
 
       <Routes>
         <Route path="/" element={<Main />}>
-          <Route path="/logo" element={<Logo />} />
+          <Route path="/about" element={<Logo />} />
           <Route path="/contacts" element={<Contacts />} />
-          <Route path="/bmx" element={<Bmx />} />
-          <Route path="/skate" element={<Skate />} />
-          <Route path="/roller" element={<Roller />} />
+          <Route path="/cooperation" element={<Bmx />} />
+          <Route path="/development" element={<Skate />} />
+          <Route path="/share" element={<Roller />} />
           <Route path="/requisites" element={<FooterRequisites />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
