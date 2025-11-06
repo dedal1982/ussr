@@ -20,7 +20,7 @@ export default defineConfig({
             tag: "link",
             attrs: {
               rel: "preload",
-              href: "/style-G0RiFpW_.css",
+              href: "/style-WLF071Eo.css",
               as: "style",
               fetchPriority: "high",
               crossorigin: "anonymous",
