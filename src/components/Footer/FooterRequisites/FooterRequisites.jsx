@@ -2,6 +2,7 @@ import "./FooterRequisites.css";
 import { useState, useEffect, useCallback, useRef, Suspense } from "react";
 import { useEscapeKey } from "@/hooks/useEscapeKey";
 import { usePathPrefix } from "@/hooks/usePathPrefix";
+import useMeta from "@/hooks/useMetaTags";
 
 const FooterRequisites = () => {
   const [active, setActive] = useState(false);
@@ -17,6 +18,23 @@ const FooterRequisites = () => {
     }
   );
 
+  // состояние для мета-тегов
+  const [meta, setMeta] = useState({
+    title: "Игры от Честного Эйба",
+    description:
+      "Честный Эйб — начинающая студия разработки игр, создающая уникальные проекты для геймеров России и СНГ. Наш первый проект уже в разработке и скоро выйдет на RuStore. Следите за новостями, чтобы первыми узнать о релизе и стать частью нашего игрового сообщества!",
+  });
+  // вызов useMeta с текущими данными
+  useMeta(meta);
+
+  // переменная для хранения исходных значений мета-тегов
+  const originalMetaRef = useRef({ title: "", description: "" });
+
+  // при первом рендере сохраняем текущие мета-теги как исходные
+  useEffect(() => {
+    originalMetaRef.current = { ...meta };
+  }, []);
+
   const handleOpenModal = async () => {
     if (!ModalWrapperComponent) {
       const { default: ModalWrapper } = await import(
@@ -30,6 +48,11 @@ const FooterRequisites = () => {
       );
       setLogoPopup(() => RequisitesPopup);
     }
+    // обновляем мета-теги
+    setMeta({
+      title: "Заголовок при открытии",
+      description: "Описание при открытии модального окна",
+    });
     addPrefix();
     setModalOpen(true);
   };
@@ -37,6 +60,8 @@ const FooterRequisites = () => {
   const handleCloseModal = useCallback(() => {
     removePrefix();
     setModalOpen(false);
+    // при закрытии восстанавливаем исходные мета-теги
+    setMeta({ ...originalMetaRef.current });
   }, []);
 
   const descRef = useRef(null);
@@ -59,6 +84,11 @@ const FooterRequisites = () => {
         setModalWrapper(() => ModalWrapper);
         setLogoPopup(() => RequisitesPopup);
         setModalOpen(true);
+        // обновляем мета-теги при открытии
+        setMeta({
+          title: "Заголовок при открытии модального окна",
+          description: "Описание при открытии модального окна",
+        });
       });
     }
   }, []);

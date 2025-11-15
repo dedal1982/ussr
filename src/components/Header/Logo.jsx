@@ -45,13 +45,11 @@ const Logo = () => {
       );
       setLogoPopup(() => LogoPopup);
     }
-
     // обновляем мета-теги
     setMeta({
       title: "Заголовок при открытии",
       description: "Описание при открытии модального окна",
     });
-
     addPrefix();
     setModalOpen(true);
   };

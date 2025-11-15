@@ -56,6 +56,7 @@ const Contacts = ({ className }) => {
       );
       setLogoPopup(() => ContactsPopup);
     }
+
     // обновляем мета-теги
     setMeta({
       title: "Заголовок при открытии",
