@@ -47,7 +47,7 @@ const Skate = () => {
     }
     // обновляем мета-теги
     setMeta({
-      title: "Заголовок при открытии",
+      title: "Development",
       description: "Описание при открытии модального окна",
     });
     addPrefix();

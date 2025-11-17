@@ -50,7 +50,7 @@ const FooterRequisites = () => {
     }
     // обновляем мета-теги
     setMeta({
-      title: "Заголовок при открытии",
+      title: "Requisites",
       description: "Описание при открытии модального окна",
     });
     addPrefix();

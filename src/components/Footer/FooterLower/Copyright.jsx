@@ -47,7 +47,7 @@ const Copyright = () => {
     }
     // обновляем мета-теги
     setMeta({
-      title: "Заголовок при открытии",
+      title: "Copyright",
       description: "Описание при открытии модального окна",
     });
     addPrefix();

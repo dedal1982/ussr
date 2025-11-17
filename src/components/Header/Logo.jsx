@@ -47,7 +47,7 @@ const Logo = () => {
     }
     // обновляем мета-теги
     setMeta({
-      title: "Заголовок при открытии",
+      title: "About",
       description: "Описание при открытии модального окна",
     });
     addPrefix();

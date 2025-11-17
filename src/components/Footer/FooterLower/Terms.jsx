@@ -47,7 +47,7 @@ const Terms = () => {
     }
     // обновляем мета-теги
     setMeta({
-      title: "Заголовок при открытии",
+      title: "Terms",
       description: "Описание при открытии модального окна",
     });
     addPrefix();

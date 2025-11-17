@@ -47,7 +47,7 @@ const Roller = () => {
     }
     // обновляем мета-теги
     setMeta({
-      title: "Заголовок при открытии",
+      title: "Share",
       description: "Описание при открытии модального окна",
     });
     addPrefix();

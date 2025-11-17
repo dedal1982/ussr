@@ -47,7 +47,7 @@ const Privacy = () => {
     }
     // обновляем мета-теги
     setMeta({
-      title: "Заголовок при открытии",
+      title: "Privacy",
       description: "Описание при открытии модального окна",
     });
     addPrefix();

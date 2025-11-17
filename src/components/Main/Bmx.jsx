@@ -45,7 +45,7 @@ const Bmx = () => {
     }
     // обновляем мета-теги
     setMeta({
-      title: "Заголовок при открытии",
+      title: "Cooperation",
       description: "Описание при открытии модального окна",
     });
     addPrefix();

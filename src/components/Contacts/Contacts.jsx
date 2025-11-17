@@ -59,7 +59,7 @@ const Contacts = ({ className }) => {
 
     // обновляем мета-теги
     setMeta({
-      title: "Заголовок при открытии",
+      title: "Contacts",
       description: "Описание при открытии модального окна",
     });
     addPrefix();
