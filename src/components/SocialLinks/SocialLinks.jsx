@@ -39,7 +39,7 @@ const SocialLinks = () => {
       </li>
       <li>
         <a
-          href="https://www.rustore.ru/catalog/app/com.gameeyb.uncleabestories"
+          href="https://www.rustore.ru/catalog/developer/9qrgofwk"
           target="_blank"
         >
           <img src={RuStore} alt="RuStore" loading="lazy" />
