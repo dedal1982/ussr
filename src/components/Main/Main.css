@@ -1,5 +1,4 @@
 .main {
-  display: flex;
   flex: 1;
   background: transparent;
 }
@@ -61,8 +60,7 @@
   fill: #962828;
 }
 .main__image-c {
-  min-width: 340px;
-  aspect-ratio: 340 / 440;
+  width: 340px;
   cursor: pointer;
   z-index: 2;
   display: flex;

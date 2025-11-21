@@ -14,14 +14,18 @@ import Logo from "./components/Header/Logo";
 import Contacts from "./components/Contacts/Contacts";
 import FooterRequisites from "./components/Footer/FooterRequisites/FooterRequisites";
 import Copyright from "./components/Footer/FooterLower/Copyright";
+import { useWindowWidth } from "./hooks/useWindowWidth";
 
 const App = () => {
+  const width = useWindowWidth();
+  const isDesktop = width > 960;
+  const isMobile = width <= 960;
   return (
     <div className="page">
-      <Header />
+      <Header isDesktop={isDesktop} />
 
       <Routes>
-        <Route path="/" element={<Main />}>
+        <Route path="/" element={<Main isMobile={isMobile} />}>
           <Route path="/about" element={<Logo />} />
           <Route path="/contacts" element={<Contacts />} />
           <Route path="/cooperation" element={<Bmx />} />

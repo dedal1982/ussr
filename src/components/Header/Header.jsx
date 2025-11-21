@@ -2,12 +2,8 @@ import "./Header.css";
 import Logo from "./Logo";
 import MobileTitle from "./MobileTitle";
 import Contacts from "../Contacts/Contacts";
-import { useWindowWidth } from "../../hooks/useWindowWidth";
 
-const Header = () => {
-  const width = useWindowWidth();
-  const isDesktop = width > 960;
-
+const Header = ({ isDesktop }) => {
   return (
     <div className="header" role="banner">
       <div className="header__wrapper holder">

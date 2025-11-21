@@ -4,12 +4,8 @@ import Skate from "./Skate";
 import Roller from "./Roller";
 import Contacts from "../Contacts/Contacts";
 import SocialLinks from "../SocialLinks/SocialLinks";
-import { useWindowWidth } from "../../hooks/useWindowWidth";
 
-const Main = () => {
-  const width = useWindowWidth();
-  const isMobile = width <= 960;
-
+const Main = ({ isMobile }) => {
   return (
     <main className="main">
       <div className="main__wrapper holder">
