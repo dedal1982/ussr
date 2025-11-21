@@ -1,7 +1,7 @@
 import "./Popup.css";
 import RiverDP from "@/assets/images/Hero/Hero_3.webp";
 
-function BmxPopup() {
+export const BmxPopup = () => {
   return (
     <>
       <div className="popup-image">
@@ -95,6 +95,4 @@ function BmxPopup() {
       </div>
     </>
   );
-}
-
-export default BmxPopup;
+};

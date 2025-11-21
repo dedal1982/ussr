@@ -1,11 +1,12 @@
 import "./Main.css";
-import Bmx from "./Bmx";
-import Skate from "./Skate";
-import Roller from "./Roller";
-import Contacts from "../Contacts/Contacts";
-import SocialLinks from "../SocialLinks/SocialLinks";
+import { Outlet } from "react-router-dom";
+import { Bmx } from "./Bmx";
+import { Skate } from "./Skate";
+import { Roller } from "./Roller";
+import { Contacts } from "../Contacts/Contacts";
+import { SocialLinks } from "../SocialLinks/SocialLinks";
 
-const Main = ({ isMobile }) => {
+export const Main = ({ isMobile }) => {
   return (
     <main className="main">
       <div className="main__wrapper holder">
@@ -20,9 +21,8 @@ const Main = ({ isMobile }) => {
             <Contacts className="contacts-mobile" />
           </section>
         )}
+        <Outlet />
       </div>
     </main>
   );
 };
-
-export default Main;

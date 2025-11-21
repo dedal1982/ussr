@@ -1,7 +1,7 @@
 import "./Popup.css";
 import LeiDP from "../../assets/images/Hero/Hero_5.webp";
 
-function TermsPopup() {
+export const TermsPopup = () => {
   return (
     <>
       <div className="popup-image">
@@ -118,6 +118,4 @@ function TermsPopup() {
       </div>
     </>
   );
-}
-
-export default TermsPopup;
+};

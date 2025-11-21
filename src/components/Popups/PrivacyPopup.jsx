@@ -1,7 +1,7 @@
 import "./Popup.css";
 import LeiDP from "../../assets/images/Hero/Hero_5.webp";
 
-function PrivacyPopup() {
+export const PrivacyPopup = () => {
   return (
     <>
       <div className="popup-image">
@@ -120,6 +120,4 @@ function PrivacyPopup() {
       </div>
     </>
   );
-}
-
-export default PrivacyPopup;
+};

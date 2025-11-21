@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback, useRef, Suspense } from "react";
 import { useEscapeKey } from "@/hooks/useEscapeKey";
 import { usePathPrefix } from "@/hooks/usePathPrefix";
-import useMeta from "@/hooks/useMetaTags";
+import { useMeta } from "@/hooks/useMetaTags";
 
-const Privacy = () => {
+export const Privacy = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [ModalWrapperComponent, setModalWrapper] = useState(null);
   const [PopupComponent, setLogoPopup] = useState(null);
@@ -34,15 +34,13 @@ const Privacy = () => {
 
   const handleOpenModal = async () => {
     if (!ModalWrapperComponent) {
-      const { default: ModalWrapper } = await import(
+      const { ModalWrapper } = await import(
         "@components/ModalWrapper/ModalWrapper"
       );
       setModalWrapper(() => ModalWrapper);
     }
     if (!PopupComponent) {
-      const { default: PrivacyPopup } = await import(
-        "@components/Popups/PrivacyPopup"
-      );
+      const { PrivacyPopup } = await import("@components/Popups/PrivacyPopup");
       setLogoPopup(() => PrivacyPopup);
     }
     // обновляем мета-теги
@@ -77,7 +75,7 @@ const Privacy = () => {
       Promise.all([
         import("@components/ModalWrapper/ModalWrapper"),
         import("@components/Popups/PrivacyPopup"),
-      ]).then(([{ default: ModalWrapper }, { default: PrivacyPopup }]) => {
+      ]).then(([{ ModalWrapper }, { PrivacyPopup }]) => {
         setModalWrapper(() => ModalWrapper);
         setLogoPopup(() => PrivacyPopup);
         setModalOpen(true);
@@ -120,5 +118,3 @@ const Privacy = () => {
     </>
   );
 };
-
-export default Privacy;

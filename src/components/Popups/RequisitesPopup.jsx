@@ -1,7 +1,7 @@
 import "./Popup.css";
 import RayDP from "../../assets/images/Hero/Hero_6.webp";
 
-function RequisitesPopup() {
+export const RequisitesPopup = () => {
   return (
     <>
       <div className="popup-image">
@@ -100,6 +100,4 @@ function RequisitesPopup() {
       </p>
     </>
   );
-}
-
-export default RequisitesPopup;
+};

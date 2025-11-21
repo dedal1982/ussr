@@ -20,7 +20,7 @@ export default defineConfig({
             tag: "link",
             attrs: {
               rel: "preload",
-              href: "/style-BGE8jlOu.css",
+              href: "/style-CNP6nNzA.css",
               as: "style",
               fetchPriority: "high",
               crossorigin: "anonymous",
@@ -63,10 +63,16 @@ export default defineConfig({
     manifest: "manifest.json",
     rollupOptions: {
       input: path.resolve(__dirname, "index.html"),
+
       output: {
         entryFileNames: "[name]-[hash].js",
         chunkFileNames: "[name]-[hash].js",
         assetFileNames: "[name]-[hash][extname]",
+        manualChunks(id) {
+          if (id.includes("src/components/CookieConsent/CookieConsent.jsx")) {
+            return "cookie-consent";
+          }
+        },
       },
     },
     chunkSizeWarningLimit: 1000,

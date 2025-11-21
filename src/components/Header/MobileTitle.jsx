@@ -1,4 +1,4 @@
-const MobileTitle = () => {
+export const MobileTitle = () => {
   return (
     <div
       className="top-title"
@@ -19,5 +19,3 @@ const MobileTitle = () => {
     </div>
   );
 };
-
-export default MobileTitle;

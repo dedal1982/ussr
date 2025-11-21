@@ -6,7 +6,7 @@ import ToGis from "../../assets/images/2GIS.svg";
 import RuStore from "../../assets/images/RuStore.svg";
 import "./SocialLinks.css";
 
-const SocialLinks = () => {
+export const SocialLinks = () => {
   return (
     <ul className="social-links">
       <li>
@@ -48,5 +48,3 @@ const SocialLinks = () => {
     </ul>
   );
 };
-
-export default SocialLinks;

@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback, useRef, Suspense } from "react";
 import { useEscapeKey } from "@/hooks/useEscapeKey";
 import { usePathPrefix } from "@/hooks/usePathPrefix";
-import useMeta from "@/hooks/useMetaTags";
+import { useMeta } from "@/hooks/useMetaTags";
 
-const Terms = () => {
+export const Terms = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [ModalWrapperComponent, setModalWrapper] = useState(null);
   const [PopupComponent, setLogoPopup] = useState(null);
@@ -34,15 +34,13 @@ const Terms = () => {
 
   const handleOpenModal = async () => {
     if (!ModalWrapperComponent) {
-      const { default: ModalWrapper } = await import(
+      const { ModalWrapper } = await import(
         "@components/ModalWrapper/ModalWrapper"
       );
       setModalWrapper(() => ModalWrapper);
     }
     if (!PopupComponent) {
-      const { default: TermsPopup } = await import(
-        "@components/Popups/TermsPopup"
-      );
+      const { TermsPopup } = await import("@components/Popups/TermsPopup");
       setLogoPopup(() => TermsPopup);
     }
     // обновляем мета-теги
@@ -77,7 +75,7 @@ const Terms = () => {
       Promise.all([
         import("@components/ModalWrapper/ModalWrapper"),
         import("@components/Popups/TermsPopup"),
-      ]).then(([{ default: ModalWrapper }, { default: TermsPopup }]) => {
+      ]).then(([{ ModalWrapper }, { TermsPopup }]) => {
         setModalWrapper(() => ModalWrapper);
         setLogoPopup(() => TermsPopup);
         setModalOpen(true);
@@ -120,5 +118,3 @@ const Terms = () => {
     </>
   );
 };
-
-export default Terms;

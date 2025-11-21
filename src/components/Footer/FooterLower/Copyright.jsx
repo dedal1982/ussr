@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback, useRef, Suspense } from "react";
 import { useEscapeKey } from "@/hooks/useEscapeKey";
 import { usePathPrefix } from "@/hooks/usePathPrefix";
-import useMeta from "@/hooks/useMetaTags";
+import { useMeta } from "@/hooks/useMetaTags";
 
-const Copyright = () => {
+export const Copyright = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [ModalWrapperComponent, setModalWrapper] = useState(null);
   const [PopupComponent, setLogoPopup] = useState(null);
@@ -34,13 +34,13 @@ const Copyright = () => {
 
   const handleOpenModal = async () => {
     if (!ModalWrapperComponent) {
-      const { default: ModalWrapper } = await import(
+      const { ModalWrapper } = await import(
         "@components/ModalWrapper/ModalWrapper"
       );
       setModalWrapper(() => ModalWrapper);
     }
     if (!PopupComponent) {
-      const { default: CopyrightPopup } = await import(
+      const { CopyrightPopup } = await import(
         "@components/Popups/CopyrightPopup"
       );
       setLogoPopup(() => CopyrightPopup);
@@ -77,7 +77,7 @@ const Copyright = () => {
       Promise.all([
         import("@components/ModalWrapper/ModalWrapper"),
         import("@components/Popups/CopyrightPopup"),
-      ]).then(([{ default: ModalWrapper }, { default: CopyrightPopup }]) => {
+      ]).then(([{ ModalWrapper }, { CopyrightPopup }]) => {
         setModalWrapper(() => ModalWrapper);
         setLogoPopup(() => CopyrightPopup);
         setModalOpen(true);
@@ -114,5 +114,3 @@ const Copyright = () => {
     </>
   );
 };
-
-export default Copyright;

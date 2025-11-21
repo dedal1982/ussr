@@ -2,9 +2,9 @@ import "./FooterRequisites.css";
 import { useState, useEffect, useCallback, useRef, Suspense } from "react";
 import { useEscapeKey } from "@/hooks/useEscapeKey";
 import { usePathPrefix } from "@/hooks/usePathPrefix";
-import useMeta from "@/hooks/useMetaTags";
+import { useMeta } from "@/hooks/useMetaTags";
 
-const FooterRequisites = () => {
+export const FooterRequisites = () => {
   const [active, setActive] = useState(false);
 
   const [isModalOpen, setModalOpen] = useState(false);
@@ -37,13 +37,13 @@ const FooterRequisites = () => {
 
   const handleOpenModal = async () => {
     if (!ModalWrapperComponent) {
-      const { default: ModalWrapper } = await import(
+      const { ModalWrapper } = await import(
         "@components/ModalWrapper/ModalWrapper"
       );
       setModalWrapper(() => ModalWrapper);
     }
     if (!PopupComponent) {
-      const { default: RequisitesPopup } = await import(
+      const { RequisitesPopup } = await import(
         "@components/Popups/RequisitesPopup"
       );
       setLogoPopup(() => RequisitesPopup);
@@ -80,7 +80,7 @@ const FooterRequisites = () => {
       Promise.all([
         import("@components/ModalWrapper/ModalWrapper"),
         import("@components/Popups/RequisitesPopup"),
-      ]).then(([{ default: ModalWrapper }, { default: RequisitesPopup }]) => {
+      ]).then(([{ ModalWrapper }, { RequisitesPopup }]) => {
         setModalWrapper(() => ModalWrapper);
         setLogoPopup(() => RequisitesPopup);
         setModalOpen(true);
@@ -160,5 +160,3 @@ const FooterRequisites = () => {
     </>
   );
 };
-
-export default FooterRequisites;

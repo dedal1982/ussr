@@ -1,4 +1,4 @@
-const StubPage = () => {
+export const StubPage = () => {
   return (
     <div className="stub-page">
       <div className="stub-container">
@@ -19,5 +19,3 @@ const StubPage = () => {
     </div>
   );
 };
-
-export default StubPage;

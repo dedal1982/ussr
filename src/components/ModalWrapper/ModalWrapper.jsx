@@ -68,7 +68,7 @@ const Overlay = memo(({ children, onClose }) => {
   );
 });
 
-const ModalWrapper = memo(({ isOpen, onClose, children }) => {
+export const ModalWrapper = memo(({ isOpen, onClose, children }) => {
   // мемоизируем onClose
   const memoizedOnClose = useCallback(() => {
     onClose();
@@ -81,5 +81,3 @@ const ModalWrapper = memo(({ isOpen, onClose, children }) => {
     document.body
   );
 });
-
-export default ModalWrapper;

@@ -1,7 +1,7 @@
 import "./Popup.css";
 import DekmenDP from "../../assets/images/Hero/Hero_1.webp";
 
-function SkatePopup() {
+export const SkatePopup = () => {
   return (
     <>
       <div className="popup-image">
@@ -95,6 +95,4 @@ function SkatePopup() {
       </div>
     </>
   );
-}
-
-export default SkatePopup;
+};

@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback, useRef, Suspense } from "react";
 import { useEscapeKey } from "@/hooks/useEscapeKey";
 import { usePathPrefix } from "@/hooks/usePathPrefix";
-import useMeta from "@/hooks/useMetaTags";
+import { useMeta } from "@/hooks/useMetaTags";
 
-const Roller = () => {
+export const Roller = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [ModalWrapperComponent, setModalWrapper] = useState(null);
   const [PopupComponent, setLogoPopup] = useState(null);
@@ -34,15 +34,13 @@ const Roller = () => {
 
   const handleOpenModal = async () => {
     if (!ModalWrapperComponent) {
-      const { default: ModalWrapper } = await import(
+      const { ModalWrapper } = await import(
         "@components/ModalWrapper/ModalWrapper"
       );
       setModalWrapper(() => ModalWrapper);
     }
     if (!PopupComponent) {
-      const { default: RollerPopup } = await import(
-        "@components/Popups/RollerPopup"
-      );
+      const { RollerPopup } = await import("@components/Popups/RollerPopup");
       setLogoPopup(() => RollerPopup);
     }
     // обновляем мета-теги
@@ -77,7 +75,7 @@ const Roller = () => {
       Promise.all([
         import("@components/ModalWrapper/ModalWrapper"),
         import("@components/Popups/RollerPopup"),
-      ]).then(([{ default: ModalWrapper }, { default: RollerPopup }]) => {
+      ]).then(([{ ModalWrapper }, { RollerPopup }]) => {
         setModalWrapper(() => ModalWrapper);
         setLogoPopup(() => RollerPopup);
         setModalOpen(true);
@@ -123,5 +121,3 @@ const Roller = () => {
     </>
   );
 };
-
-export default Roller;

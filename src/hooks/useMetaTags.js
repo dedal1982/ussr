@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-function useMeta({ title = "", description = "" } = {}) {
+export function useMeta({ title = "", description = "" } = {}) {
   const prevRef = useRef({ title: "", description: "" });
 
   useEffect(() => {
@@ -24,5 +24,3 @@ function useMeta({ title = "", description = "" } = {}) {
     prevRef.current = { title, description };
   }, [title, description]);
 }
-
-export default useMeta;

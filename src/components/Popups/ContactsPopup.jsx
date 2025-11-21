@@ -1,7 +1,7 @@
 import "./Popup.css";
 import KimiDP from "../../assets/images/Hero/Hero_7.webp";
 
-const ContactsPopup = () => {
+export const ContactsPopup = () => {
   return (
     <>
       <div className="popup-image">
@@ -99,5 +99,3 @@ const ContactsPopup = () => {
     </>
   );
 };
-
-export default ContactsPopup;

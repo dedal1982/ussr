@@ -1,7 +1,7 @@
 import "./Popup.css";
 import MimiDP from "../../assets/images/Hero/Hero_4.webp";
 
-function CopyrightPopup() {
+export const CopyrightPopup = () => {
   return (
     <>
       <div className="popup-image popup-image__copyright">
@@ -80,6 +80,4 @@ function CopyrightPopup() {
       </div>
     </>
   );
-}
-
-export default CopyrightPopup;
+};

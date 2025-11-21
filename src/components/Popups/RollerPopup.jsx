@@ -1,7 +1,7 @@
 import "./Popup.css";
 import ReinaDP from "../../assets/images/Hero/Hero_2.webp";
 
-function RollerPopup() {
+export const RollerPopup = () => {
   return (
     <>
       <div className="popup-image">
@@ -92,6 +92,4 @@ function RollerPopup() {
       </div>
     </>
   );
-}
-
-export default RollerPopup;
+};

@@ -22,7 +22,7 @@ const getCookie = (name) => {
   );
 };
 
-const CookieConsent = () => {
+export const CookieConsent = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [hasAccepted, setHasAccepted] = useState(false);
 
@@ -96,5 +96,3 @@ const CookieConsent = () => {
     </div>
   );
 };
-
-export default CookieConsent;

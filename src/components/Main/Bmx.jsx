@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback, useRef, Suspense } from "react";
 import { useEscapeKey } from "@/hooks/useEscapeKey";
 import { usePathPrefix } from "@/hooks/usePathPrefix";
-import useMeta from "@/hooks/useMetaTags";
+import { useMeta } from "@/hooks/useMetaTags";
 
-const Bmx = () => {
+export const Bmx = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [ModalWrapperComponent, setModalWrapper] = useState(null);
   const [PopupComponent, setLogoPopup] = useState(null);
@@ -34,13 +34,13 @@ const Bmx = () => {
 
   const handleOpenModal = async () => {
     if (!ModalWrapperComponent) {
-      const { default: ModalWrapper } = await import(
+      const { ModalWrapper } = await import(
         "@components/ModalWrapper/ModalWrapper"
       );
       setModalWrapper(() => ModalWrapper);
     }
     if (!PopupComponent) {
-      const { default: BmxPopup } = await import("@components/Popups/BmxPopup");
+      const { BmxPopup } = await import("@components/Popups/BmxPopup");
       setLogoPopup(() => BmxPopup);
     }
     // обновляем мета-теги
@@ -75,7 +75,7 @@ const Bmx = () => {
       Promise.all([
         import("@components/ModalWrapper/ModalWrapper"),
         import("@components/Popups/BmxPopup"),
-      ]).then(([{ default: ModalWrapper }, { default: BmxPopup }]) => {
+      ]).then(([{ ModalWrapper }, { BmxPopup }]) => {
         setModalWrapper(() => ModalWrapper);
         setLogoPopup(() => BmxPopup);
         setModalOpen(true);
@@ -119,5 +119,3 @@ const Bmx = () => {
     </>
   );
 };
-
-export default Bmx;

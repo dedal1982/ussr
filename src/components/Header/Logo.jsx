@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback, useRef, Suspense } from "react";
 import { useEscapeKey } from "@/hooks/useEscapeKey";
 import { usePathPrefix } from "@/hooks/usePathPrefix";
-import useMeta from "@/hooks/useMetaTags";
+import { useMeta } from "@/hooks/useMetaTags";
 
-const Logo = () => {
+export const Logo = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [ModalWrapperComponent, setModalWrapper] = useState(null);
   const [PopupComponent, setLogoPopup] = useState(null);
@@ -34,15 +34,13 @@ const Logo = () => {
 
   const handleOpenModal = async () => {
     if (!ModalWrapperComponent) {
-      const { default: ModalWrapper } = await import(
+      const { ModalWrapper } = await import(
         "@components/ModalWrapper/ModalWrapper"
       );
       setModalWrapper(() => ModalWrapper);
     }
     if (!PopupComponent) {
-      const { default: LogoPopup } = await import(
-        "@components/Popups/LogoPopup"
-      );
+      const { LogoPopup } = await import("@components/Popups/LogoPopup");
       setLogoPopup(() => LogoPopup);
     }
     // обновляем мета-теги
@@ -77,7 +75,7 @@ const Logo = () => {
       Promise.all([
         import("@components/ModalWrapper/ModalWrapper"),
         import("@components/Popups/LogoPopup"),
-      ]).then(([{ default: ModalWrapper }, { default: LogoPopup }]) => {
+      ]).then(([{ ModalWrapper }, { LogoPopup }]) => {
         setModalWrapper(() => ModalWrapper);
         setLogoPopup(() => LogoPopup);
         setModalOpen(true);
@@ -125,5 +123,3 @@ const Logo = () => {
     </>
   );
 };
-
-export default Logo;

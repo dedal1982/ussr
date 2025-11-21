@@ -1,7 +1,7 @@
 import "./Popup.css";
 import AikisDP from "../../assets/images/Hero/Hero_8.webp";
 
-const LogoPopup = () => {
+export const LogoPopup = () => {
   return (
     <>
       <div className="popup-image">
@@ -67,5 +67,3 @@ const LogoPopup = () => {
     </>
   );
 };
-
-export default LogoPopup;

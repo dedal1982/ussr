@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback, useRef, Suspense } from "react";
 import { useEscapeKey } from "@/hooks/useEscapeKey";
 import { usePathPrefix } from "@/hooks/usePathPrefix";
-import useMeta from "@/hooks/useMetaTags";
+import { useMeta } from "@/hooks/useMetaTags";
 
-const Skate = () => {
+export const Skate = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [ModalWrapperComponent, setModalWrapper] = useState(null);
   const [PopupComponent, setLogoPopup] = useState(null);
@@ -34,15 +34,13 @@ const Skate = () => {
 
   const handleOpenModal = async () => {
     if (!ModalWrapperComponent) {
-      const { default: ModalWrapper } = await import(
+      const { ModalWrapper } = await import(
         "@components/ModalWrapper/ModalWrapper"
       );
       setModalWrapper(() => ModalWrapper);
     }
     if (!PopupComponent) {
-      const { default: SkatePopup } = await import(
-        "@components/Popups/SkatePopup"
-      );
+      const { SkatePopup } = await import("@components/Popups/SkatePopup");
       setLogoPopup(() => SkatePopup);
     }
     // обновляем мета-теги
@@ -77,7 +75,7 @@ const Skate = () => {
       Promise.all([
         import("@components/ModalWrapper/ModalWrapper"),
         import("@components/Popups/SkatePopup"),
-      ]).then(([{ default: ModalWrapper }, { default: SkatePopup }]) => {
+      ]).then(([{ ModalWrapper }, { SkatePopup }]) => {
         setModalWrapper(() => ModalWrapper);
         setLogoPopup(() => SkatePopup);
         setModalOpen(true);
@@ -121,5 +119,3 @@ const Skate = () => {
     </>
   );
 };
-
-export default Skate;

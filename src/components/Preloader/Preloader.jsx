@@ -1,6 +1,6 @@
 import "./Preloader.css";
 
-const Preloader = () => {
+export const Preloader = () => {
   return (
     <div className="loader-overlay " id="loader">
       <div className="loader-wrapper">
@@ -11,5 +11,3 @@ const Preloader = () => {
     </div>
   );
 };
-
-export default Preloader;

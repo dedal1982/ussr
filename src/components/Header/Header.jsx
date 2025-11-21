@@ -1,9 +1,9 @@
 import "./Header.css";
-import Logo from "./Logo";
-import MobileTitle from "./MobileTitle";
-import Contacts from "../Contacts/Contacts";
+import { Logo } from "./Logo";
+import { MobileTitle } from "./MobileTitle";
+import { Contacts } from "../Contacts/Contacts";
 
-const Header = ({ isDesktop }) => {
+export const Header = ({ isDesktop }) => {
   return (
     <div className="header" role="banner">
       <div className="header__wrapper holder">
@@ -14,5 +14,3 @@ const Header = ({ isDesktop }) => {
     </div>
   );
 };
-
-export default Header;

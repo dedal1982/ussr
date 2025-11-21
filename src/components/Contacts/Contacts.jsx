@@ -2,9 +2,9 @@ import "./Contacts.css";
 import { useState, useEffect, useCallback, useRef, Suspense } from "react";
 import { useEscapeKey } from "@/hooks/useEscapeKey";
 import { usePathPrefix } from "@/hooks/usePathPrefix";
-import useMeta from "@/hooks/useMetaTags";
+import { useMeta } from "@/hooks/useMetaTags";
 
-const Contacts = ({ className }) => {
+export const Contacts = ({ className }) => {
   const [contactsText, setContactsText] = useState("Контакты");
 
   const handleMouseOver = (name) => {
@@ -45,13 +45,13 @@ const Contacts = ({ className }) => {
 
   const handleOpenModal = async () => {
     if (!ModalWrapperComponent) {
-      const { default: ModalWrapper } = await import(
+      const { ModalWrapper } = await import(
         "@components/ModalWrapper/ModalWrapper"
       );
       setModalWrapper(() => ModalWrapper);
     }
     if (!PopupComponent) {
-      const { default: ContactsPopup } = await import(
+      const { ContactsPopup } = await import(
         "@components/Popups/ContactsPopup"
       );
       setLogoPopup(() => ContactsPopup);
@@ -88,7 +88,7 @@ const Contacts = ({ className }) => {
       Promise.all([
         import("@components/ModalWrapper/ModalWrapper"),
         import("@components/Popups/ContactsPopup"),
-      ]).then(([{ default: ModalWrapper }, { default: ContactsPopup }]) => {
+      ]).then(([{ ModalWrapper }, { ContactsPopup }]) => {
         setModalWrapper(() => ModalWrapper);
         setLogoPopup(() => ContactsPopup);
         setModalOpen(true);
@@ -182,5 +182,3 @@ const Contacts = ({ className }) => {
     </>
   );
 };
-
-export default Contacts;

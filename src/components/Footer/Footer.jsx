@@ -1,8 +1,8 @@
 import "./Footer.css";
-import FooterRequisites from "./FooterRequisites/FooterRequisites";
-import FooterLower from "./FooterLower/FooterLower";
+import { FooterRequisites } from "./FooterRequisites/FooterRequisites";
+import { FooterLower } from "./FooterLower/FooterLower";
 
-const Footer = () => {
+export const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer__wrapper holder">
@@ -12,5 +12,3 @@ const Footer = () => {
     </footer>
   );
 };
-
-export default Footer;
