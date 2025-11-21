@@ -102,9 +102,6 @@ const Roller = () => {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="17.5609756097561 4.732 326.22889305816136 323.804"
-          style={{ maxHeight: "500px" }}
-          width="326.22889305816136"
-          height="323.804"
         >
           <path
             fillRule="evenodd"
