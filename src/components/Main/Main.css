@@ -3,7 +3,7 @@
   background: transparent;
 }
 .main__wrapper {
-  height: calc(100dvh - 456px);
+  height: calc(100vh - 426px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,6 +58,7 @@
 .main__image-l svg {
   width: 100%;
   height: auto;
+  display: block;
   object-fit: cover;
   fill: #d5d5d5;
   transition: all 0.3s ease-out;
@@ -88,6 +89,7 @@
 .main__image-c svg {
   width: 100%;
   height: auto;
+  display: block;
   object-fit: cover;
   fill: #d5d5d5;
   transition: all 0.3s ease-out;
@@ -111,6 +113,7 @@
 .main__image-r svg {
   width: 100%;
   height: auto;
+  display: block;
   object-fit: cover;
   fill: #d5d5d5;
   transition: all 0.3s ease-out;
@@ -133,5 +136,12 @@
     font-size: 10vw;
     opacity: 0;
     transform: translateX(-100%);
+  }
+}
+/* Портретный вид*/
+@media screen and (width: 1024px) and (height: 1366px) {
+  .main__wrapper {
+    justify-content: center;
+    gap: 50px;
   }
 }
