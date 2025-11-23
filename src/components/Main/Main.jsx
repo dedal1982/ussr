@@ -21,7 +21,6 @@ export const Main = ({ isMobile }) => {
             <Contacts className="contacts-mobile" />
           </section>
         )}
-        <Outlet />
       </div>
     </main>
   );
