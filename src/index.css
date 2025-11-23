@@ -1,37 +1,17 @@
-:root {
-  font-family: "Montserrat", "Buyan", sans-serif;
-  font-synthesis: none;
-  font-optical-sizing: auto;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
-  -moz-text-size-adjust: 100%;
-  color: #d5d5d5;
+@font-face {
+  font-family: "Montserrat";
+  src: url("./assets/fonts/Montserrat-Regular.woff2") format("woff2"),
+    url("./assets/fonts/Montserrat-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-size: 16px;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-  background: #252729;
-}
-
-a {
-  text-decoration: none;
-}
-
-button {
-  border: none;
-  cursor: pointer;
-  background: transparent;
+@font-face {
+  font-family: "Buyan";
+  src: url("./assets/fonts/Buyan-Regular.woff2") format("woff2"),
+    url("./assets/fonts/Buyan-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }

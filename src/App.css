@@ -1,21 +1,42 @@
 #root {
-  width: 100%;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
+  font-family: "Montserrat", "Buyan", sans-serif;
+  font-synthesis: none;
+  font-optical-sizing: auto;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
   background-image: url(./assets/images/Skate_89.svg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top center;
   color: #d5d5d5;
 }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+body {
+  background: #252729;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  background: transparent;
+}
+
 .page {
   max-width: 1920px;
-  width: 100%;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
   margin: 0 auto;
 }
 .lock {
