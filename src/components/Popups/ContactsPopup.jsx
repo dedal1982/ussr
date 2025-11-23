@@ -24,7 +24,7 @@ export const ContactsPopup = () => {
       </div>
       <ul className="popup-list">
         <li>
-          <span>Телефоны:</span>
+          <strong>Телефоны:</strong>
           <br />
           <p>+7 (916) 571-89-89 - Разработка сайтов</p>
           <p>+7 (925) 571-89-89 - Разработка игр</p>
@@ -36,7 +36,7 @@ export const ContactsPopup = () => {
           </p>
         </li>
         <li>
-          <span>Telegram:</span>
+          <strong>Telegram:</strong>
           <a href="https://web.telegram.org/k/#@ChestnyyEyb" target="_blank">
             @ChestnyyEyb
           </a>
@@ -46,7 +46,7 @@ export const ContactsPopup = () => {
           </p>
         </li>
         <li>
-          <span>Электронная почта:</span>
+          <strong>Электронная почта:</strong>
           <a href="mailto:lincoln@chestnyyeyb.ru">lincoln@chestnyyeyb.ru</a>
           <p>
             (Напишите письмо, если хотите поделиться подробными предложениями
@@ -61,10 +61,10 @@ export const ContactsPopup = () => {
         жизнь и смысл.
       </div>
       <hr className="popup-separator" />
-      <p className="popup-title">Дополнительная информация:</p>
+      <h2 className="popup-title">Дополнительная информация:</h2>
       <ul className="popup-list">
         <li>
-          <span>Почему важно писать?</span>
+          <strong>Почему важно писать?</strong>
           <p>
             Каждое ваше сообщение — это шаг к тому, чтобы сделать игру ещё более
             увлекательной и качественной. Мы ценим ваше мнение и стараемся
@@ -72,7 +72,7 @@ export const ContactsPopup = () => {
           </p>
         </li>
         <li>
-          <span>Что можно обсудить?</span>
+          <strong>Что можно обсудить?</strong>
           <p>
             Вы можете предложить новые идеи для сюжета, героев или игровых
             механик. Или просто поделиться своими впечатлениями о том, что вы
@@ -80,7 +80,7 @@ export const ContactsPopup = () => {
           </p>
         </li>
         <li>
-          <span>Поддержка и обратная связь</span>
+          <strong>Поддержка и обратная связь</strong>
           <p>
             Если у вас возникли технические вопросы или вы хотите поддержать
             проект, не стесняйтесь писать. Мы всегда готовы помочь и ответить на
