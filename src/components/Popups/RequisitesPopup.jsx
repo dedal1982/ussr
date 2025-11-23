@@ -1,5 +1,5 @@
 import "./Popup.css";
-import RayDP from "../../assets/images/Hero/Hero_6.webp";
+import RayDP from "@/assets/images/Hero-ligh/Hero-6.png";
 
 export const RequisitesPopup = () => {
   return (

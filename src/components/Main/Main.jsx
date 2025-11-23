@@ -1,5 +1,4 @@
 import "./Main.css";
-import { Outlet } from "react-router-dom";
 import { Bmx } from "./Bmx";
 import { Skate } from "./Skate";
 import { Roller } from "./Roller";

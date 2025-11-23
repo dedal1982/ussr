@@ -1,5 +1,5 @@
 import "./Popup.css";
-import DekmenDP from "../../assets/images/Hero/Hero_1.webp";
+import DekmenDP from "@/assets/images/Hero-ligh/Hero-4.png";
 
 export const SkatePopup = () => {
   return (

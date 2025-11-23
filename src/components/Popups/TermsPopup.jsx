@@ -1,5 +1,5 @@
 import "./Popup.css";
-import LeiDP from "../../assets/images/Hero/Hero_5.webp";
+import LeiDP from "@/assets/images/Hero-ligh/Hero-7.png";
 
 export const TermsPopup = () => {
   return (

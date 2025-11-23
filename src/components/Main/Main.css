@@ -3,7 +3,7 @@
   background: transparent;
 }
 .main__wrapper {
-  height: calc(100vh - 426px);
+  height: calc(100vh - 456px);
   display: flex;
   flex-direction: column;
   align-items: center;

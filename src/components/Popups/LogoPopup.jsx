@@ -1,5 +1,5 @@
 import "./Popup.css";
-import AikisDP from "../../assets/images/Hero/Hero_8.webp";
+import AikisDP from "@/assets/images/Hero-ligh/Hero-1.png";
 
 export const LogoPopup = () => {
   return (

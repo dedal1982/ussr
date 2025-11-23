@@ -1,5 +1,5 @@
 import "./Popup.css";
-import KimiDP from "../../assets/images/Hero/Hero_7.webp";
+import KimiDP from "@/assets/images/Hero-ligh/Hero-2.png";
 
 export const ContactsPopup = () => {
   return (

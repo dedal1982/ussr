@@ -1,5 +1,5 @@
 import "./Popup.css";
-import ReinaDP from "../../assets/images/Hero/Hero_2.webp";
+import ReinaDP from "@/assets/images/Hero-ligh/Hero-5.png";
 
 export const RollerPopup = () => {
   return (

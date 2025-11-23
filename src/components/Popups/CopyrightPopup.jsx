@@ -1,5 +1,5 @@
 import "./Popup.css";
-import MimiDP from "../../assets/images/Hero/Hero_4.webp";
+import MimiDP from "@/assets/images/Hero-ligh/Hero-8.png";
 
 export const CopyrightPopup = () => {
   return (
