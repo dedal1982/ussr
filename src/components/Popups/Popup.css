@@ -64,7 +64,8 @@
   gap: 10px;
   margin-left: 20px;
 }
-.popup-list li strong {
+.popup-list li strong,
+.popup-list li span {
   font-weight: bold;
 }
 .popup-list li p {
