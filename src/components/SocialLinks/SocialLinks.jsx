@@ -1,9 +1,9 @@
-import Telegram from "../../assets/images/Telegram.svg";
-import EMail from "../../assets/images/E-Mail.svg";
-import RuTube from "../../assets/images/RuTube.svg";
-import Pinterest from "../../assets/images/Pinterest.svg";
-import ToGis from "../../assets/images/2GIS.svg";
-import RuStore from "../../assets/images/RuStore.svg";
+import Telegram from "@/assets/images/Telegram.svg";
+import EMail from "@/assets/images/E-Mail.svg";
+import RuTube from "@/assets/images/RuTube.svg";
+import Pinterest from "@/assets/images/Pinterest.svg";
+import ToGis from "@/assets/images/2GIS.svg";
+import RuStore from "@/assets/images/RuStore.svg";
 import "./SocialLinks.css";
 
 export const SocialLinks = () => {

@@ -26,15 +26,15 @@ const App = () => {
 
       <Routes>
         <Route path="/" element={<Main isMobile={isMobile} />}>
-          <Route path="about" element={<Logo />} />
-          <Route path="contacts" element={<Contacts />} />
-          <Route path="cooperation" element={<Bmx />} />
-          <Route path="development" element={<Skate />} />
-          <Route path="share" element={<Roller />} />
-          <Route path="requisites" element={<FooterRequisites />} />
-          <Route path="privacy" element={<Privacy />} />
-          <Route path="terms" element={<Terms />} />
-          <Route path="copyright" element={<Copyright />} />
+          <Route path="/about" element={<Logo />} />
+          <Route path="/contacts" element={<Contacts />} />
+          <Route path="/cooperation" element={<Bmx />} />
+          <Route path="/development" element={<Skate />} />
+          <Route path="/share" element={<Roller />} />
+          <Route path="/requisites" element={<FooterRequisites />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/copyright" element={<Copyright />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

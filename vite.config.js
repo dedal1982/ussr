@@ -17,27 +17,6 @@ export default defineConfig({
       inject: {
         tags: [
           {
-            tag: "link",
-            attrs: {
-              rel: "preload",
-              href: "/style-CrWCuwaQ.css",
-              as: "style",
-              fetchPriority: "high",
-              crossorigin: "anonymous",
-            },
-            injectTo: "head",
-          },
-          {
-            tag: "link",
-            attrs: {
-              rel: "preload",
-              href: "/CookieIcon-D5mrp4Jt.svg",
-              as: "image",
-              fetchPriority: "high",
-            },
-            injectTo: "head",
-          },
-          {
             tag: "script",
             attrs: {
               type: "module",
@@ -58,7 +37,7 @@ export default defineConfig({
   build: {
     minify: "esbuild",
     target: "esnext",
-    cssCodeSplit: false,
+    cssCodeSplit: true,
     emptyOutDir: true,
     manifest: "manifest.json",
     rollupOptions: {
@@ -68,11 +47,6 @@ export default defineConfig({
         entryFileNames: "[name]-[hash].js",
         chunkFileNames: "[name]-[hash].js",
         assetFileNames: "[name]-[hash][extname]",
-        manualChunks(id) {
-          if (id.includes("src/components/CookieConsent/CookieConsent.jsx")) {
-            return "cookie-consent";
-          }
-        },
       },
     },
     chunkSizeWarningLimit: 1000,

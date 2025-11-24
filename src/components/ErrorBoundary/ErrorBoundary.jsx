@@ -1,7 +1,8 @@
+// ErrorBoundary.jsx
 import { ErrorBoundary } from "react-error-boundary";
 import { StubPage } from "../StubPage/StubPage";
 
-export const ErrorBoundaryWrapper = ({ children }) => {
+const ErrorBoundaryWrapper = ({ children }) => {
   const handleError = (error, info) => {
     console.error("Ошибка в ErrorBoundary:", error, info);
   };
@@ -12,3 +13,5 @@ export const ErrorBoundaryWrapper = ({ children }) => {
     </ErrorBoundary>
   );
 };
+
+export default ErrorBoundaryWrapper;

@@ -1,5 +1,5 @@
 import "./ModalWrapper.css";
-import React, { useEffect, useRef, useCallback, memo } from "react";
+import { useEffect, useRef, useCallback, memo } from "react";
 import { createPortal } from "react-dom";
 
 const Overlay = memo(({ children, onClose }) => {
@@ -73,6 +73,24 @@ export const ModalWrapper = memo(({ isOpen, onClose, children }) => {
   const memoizedOnClose = useCallback(() => {
     onClose();
   }, [onClose]);
+
+  useEffect(() => {
+    const rootElement = document.getElementById("root");
+    if (!rootElement) return;
+
+    if (isOpen) {
+      // при открытии попапа скрываем прокрутку
+      rootElement.style.overflow = "hidden";
+    } else {
+      // при закрытии восстанавливаем
+      rootElement.style.overflow = "";
+    }
+
+    // Очистка при размонтировании или изменении isOpen
+    return () => {
+      rootElement.style.overflow = "";
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
 

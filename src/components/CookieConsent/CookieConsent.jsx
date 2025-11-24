@@ -1,8 +1,8 @@
 import "./CookieConsent.css";
 import { useState, useEffect } from "react";
-import CookieIconImg from "../../assets/images/Cookie/CookieIcon.svg";
-import AcceptIconImg from "../../assets/images/Cookie/AcceptIcon.svg";
-import RejectIconImg from "../../assets/images/Cookie/RejectIcon.svg";
+import CookieIconImg from "@/assets/images/Cookie/CookieIcon.png";
+import AcceptIconImg from "@/assets/images/Cookie/AcceptIcon.svg";
+import RejectIconImg from "@/assets/images/Cookie/RejectIcon.svg";
 
 const setCookie = (name, value, days) => {
   let expires = "";
@@ -22,39 +22,47 @@ const getCookie = (name) => {
   );
 };
 
+// Проверка, сколько дней прошло с даты отказа
+const daysSince = (dateStr) => {
+  const pastDate = new Date(dateStr);
+  const now = new Date();
+  const diffMs = now - pastDate;
+  return diffMs / (1000 * 60 * 60 * 24);
+};
+
 export const CookieConsent = () => {
   const [isVisible, setIsVisible] = useState(true);
-  const [hasAccepted, setHasAccepted] = useState(false);
 
   useEffect(() => {
     const consentCookie = getCookie("cookieConsent");
     const declineDateStr = getCookie("declineDate");
+
     if (consentCookie === "true") {
-      // Пользователь согласился, показывать попап не нужно
+      // Пользователь согласился — скрываем окно
       setIsVisible(false);
     } else if (declineDateStr) {
-      const declineDate = new Date(declineDateStr);
-      const now = new Date();
-      const diffDays = (now - declineDate) / (1000 * 60 * 60 * 24);
-      if (diffDays >= 3) {
-        // прошло 3+ дней после отказа, показываем снова
+      // Проверяем, прошло ли 3 дня с отказа
+      const daysPassed = daysSince(declineDateStr);
+      if (daysPassed >= 3) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
       }
+    } else {
+      // Если куки отсутствуют — показываем окно (первый визит)
+      setIsVisible(true);
     }
   }, []);
 
   const handleAccept = () => {
     setCookie("cookieConsent", "true", 365);
-    setHasAccepted(true);
     setIsVisible(false);
   };
 
   const handleDecline = () => {
+    const nowStr = new Date().toISOString();
     setCookie("cookieConsent", "false", 365);
-    setCookie("declineDate", new Date().toISOString(), 365);
-    setHasAccepted(false);
+    setCookie("declineDate", nowStr, 365);
     setIsVisible(false);
   };
 
