@@ -37,7 +37,11 @@ button {
 
 .page {
   max-width: 1920px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Полная высота окна браузера */
+  margin: 0;
+  padding: 0;
 }
 .lock {
   overflow: hidden;
