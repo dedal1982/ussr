@@ -46,7 +46,7 @@ export const Logo = () => {
     // обновляем мета-теги
     setMeta({
       title: "About",
-      description: "Описание при открытии модального окна",
+      description: "Страница О нас",
     });
     addPrefix();
     setModalOpen(true);
@@ -81,8 +81,8 @@ export const Logo = () => {
         setModalOpen(true);
         // обновляем мета-теги при открытии
         setMeta({
-          title: "Заголовок при открытии модального окна",
-          description: "Описание при открытии модального окна",
+          title: "About",
+          description: "Страница О нас",
         });
       });
     }

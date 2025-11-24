@@ -51,7 +51,7 @@ export const FooterRequisites = () => {
     // обновляем мета-теги
     setMeta({
       title: "Requisites",
-      description: "Описание при открытии модального окна",
+      description: "Страница Реквизиты",
     });
     addPrefix();
     setModalOpen(true);
@@ -86,8 +86,8 @@ export const FooterRequisites = () => {
         setModalOpen(true);
         // обновляем мета-теги при открытии
         setMeta({
-          title: "Заголовок при открытии модального окна",
-          description: "Описание при открытии модального окна",
+          title: "Requisites",
+          description: "Страница Реквизиты",
         });
       });
     }

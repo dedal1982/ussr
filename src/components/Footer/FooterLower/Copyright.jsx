@@ -48,7 +48,7 @@ export const Copyright = () => {
     // обновляем мета-теги
     setMeta({
       title: "Copyright",
-      description: "Описание при открытии модального окна",
+      description: "Страница Авторское право",
     });
     addPrefix();
     setModalOpen(true);
@@ -83,8 +83,8 @@ export const Copyright = () => {
         setModalOpen(true);
         // обновляем мета-теги при открытии
         setMeta({
-          title: "Заголовок при открытии модального окна",
-          description: "Описание при открытии модального окна",
+          title: "Copyright",
+          description: "Страница Авторское право",
         });
       });
     }

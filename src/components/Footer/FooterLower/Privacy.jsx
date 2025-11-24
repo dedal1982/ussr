@@ -46,7 +46,7 @@ export const Privacy = () => {
     // обновляем мета-теги
     setMeta({
       title: "Privacy",
-      description: "Описание при открытии модального окна",
+      description: "Страница Политика конфиденциальности",
     });
     addPrefix();
     setModalOpen(true);
@@ -81,8 +81,8 @@ export const Privacy = () => {
         setModalOpen(true);
         // обновляем мета-теги при открытии
         setMeta({
-          title: "Заголовок при открытии модального окна",
-          description: "Описание при открытии модального окна",
+          title: "Privacy",
+          description: "Страница Политика конфиденциальности",
         });
       });
     }

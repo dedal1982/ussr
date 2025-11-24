@@ -46,7 +46,7 @@ export const Roller = () => {
     // обновляем мета-теги
     setMeta({
       title: "Share",
-      description: "Описание при открытии модального окна",
+      description: "Страница Делиться",
     });
     addPrefix();
     setModalOpen(true);
@@ -81,8 +81,8 @@ export const Roller = () => {
         setModalOpen(true);
         // обновляем мета-теги при открытии
         setMeta({
-          title: "Заголовок при открытии модального окна",
-          description: "Описание при открытии модального окна",
+          title: "Share",
+          description: "Страница Делиться",
         });
       });
     }

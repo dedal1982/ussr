@@ -46,7 +46,7 @@ export const Bmx = () => {
     // обновляем мета-теги
     setMeta({
       title: "Cooperation",
-      description: "Описание при открытии модального окна",
+      description: "Страница Сотрудничество",
     });
     addPrefix();
     setModalOpen(true);
@@ -81,8 +81,8 @@ export const Bmx = () => {
         setModalOpen(true);
         // обновляем мета-теги при открытии
         setMeta({
-          title: "Заголовок при открытии модального окна",
-          description: "Описание при открытии модального окна",
+          title: "Cooperation",
+          description: "Страница Сотрудничество",
         });
       });
     }

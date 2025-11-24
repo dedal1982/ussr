@@ -46,7 +46,7 @@ export const Terms = () => {
     // обновляем мета-теги
     setMeta({
       title: "Terms",
-      description: "Описание при открытии модального окна",
+      description: "Страница Пользовательское соглашение",
     });
     addPrefix();
     setModalOpen(true);
@@ -81,8 +81,8 @@ export const Terms = () => {
         setModalOpen(true);
         // обновляем мета-теги при открытии
         setMeta({
-          title: "Заголовок при открытии модального окна",
-          description: "Описание при открытии модального окна",
+          title: "Terms",
+          description: "Страница Пользовательское соглашение",
         });
       });
     }

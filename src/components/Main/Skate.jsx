@@ -46,7 +46,7 @@ export const Skate = () => {
     // обновляем мета-теги
     setMeta({
       title: "Development",
-      description: "Описание при открытии модального окна",
+      description: "Страница Развитие",
     });
     addPrefix();
     setModalOpen(true);
@@ -81,8 +81,8 @@ export const Skate = () => {
         setModalOpen(true);
         // обновляем мета-теги при открытии
         setMeta({
-          title: "Заголовок при открытии модального окна",
-          description: "Описание при открытии модального окна",
+          title: "Development",
+          description: "Страница Развитие",
         });
       });
     }

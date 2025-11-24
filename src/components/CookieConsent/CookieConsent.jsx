@@ -1,5 +1,5 @@
 import "./CookieConsent.css";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import CookieIconImg from "../../assets/images/Cookie/CookieIcon.svg";
 import AcceptIconImg from "../../assets/images/Cookie/AcceptIcon.svg";
 import RejectIconImg from "../../assets/images/Cookie/RejectIcon.svg";
@@ -26,26 +26,11 @@ export const CookieConsent = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [hasAccepted, setHasAccepted] = useState(false);
 
-  const loadGoogleAnalytics = useCallback(() => {
-    const script = document.createElement("script");
-    script.src = "https://www.googletagmanager.com/gtag/js?id=G-1P81G0D66K";
-    script.async = true;
-    script.onload = () => {
-      window.dataLayer = window.dataLayer || [];
-      window.gtag = function () {
-        window.dataLayer.push(arguments);
-      };
-      window.gtag("js", new Date());
-      window.gtag("config", "G-1P81G0D66K");
-    };
-    document.head.appendChild(script);
-  }, []);
-
   useEffect(() => {
     const consentCookie = getCookie("cookieConsent");
     const declineDateStr = getCookie("declineDate");
     if (consentCookie === "true") {
-      loadGoogleAnalytics();
+      // Пользователь согласился, показывать попап не нужно
       setIsVisible(false);
     } else if (declineDateStr) {
       const declineDate = new Date(declineDateStr);
@@ -58,13 +43,12 @@ export const CookieConsent = () => {
         setIsVisible(false);
       }
     }
-  }, [loadGoogleAnalytics]);
+  }, []);
 
   const handleAccept = () => {
     setCookie("cookieConsent", "true", 365);
     setHasAccepted(true);
     setIsVisible(false);
-    loadGoogleAnalytics();
   };
 
   const handleDecline = () => {

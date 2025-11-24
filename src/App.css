@@ -8,10 +8,10 @@
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
-  background-image: url(./assets/images/Skate_89.svg);
+  /* background-image: url(./assets/images/BG-OPT-PNG.png);
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: top center;
+  background-position: top center; */
   color: #d5d5d5;
 }
 * {
@@ -36,37 +36,28 @@ button {
 }
 
 .page {
-  max-width: 1920px;
+  /* max-width: 1920px; */
   display: flex;
   flex-direction: column;
-  height: 100vh; /* Полная высота окна браузера */
-  margin: 0;
-  padding: 0;
+  height: 100vh;
+  margin: 0 auto;
+  background-image: url(./assets/images/BG-OPT-PNG.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top center;
 }
 .lock {
   overflow: hidden;
 }
 
 .holder {
-  padding-left: 120px;
-  padding-right: 120px;
+  max-width: 1640px;
+  padding-left: 20px;
+  padding-right: 20px;
   box-sizing: border-box;
   margin: 0 auto;
 }
-@media screen and (max-width: 1440px) {
-  .holder {
-    padding-left: 40px;
-    padding-right: 40px;
-  }
-}
-@media screen and (max-width: 768px) {
-  .holder {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-}
 
-/*****************/
 .stub-page {
   display: flex;
   position: fixed;

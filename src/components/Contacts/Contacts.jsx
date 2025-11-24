@@ -60,7 +60,7 @@ export const Contacts = ({ className }) => {
     // обновляем мета-теги
     setMeta({
       title: "Contacts",
-      description: "Описание при открытии модального окна",
+      description: "Страница Контакты",
     });
     addPrefix();
     setModalOpen(true);
@@ -94,8 +94,8 @@ export const Contacts = ({ className }) => {
         setModalOpen(true);
         // обновляем мета-теги при открытии
         setMeta({
-          title: "Заголовок при открытии модального окна",
-          description: "Описание при открытии модального окна",
+          title: "Contacts",
+          description: "Страница Контакты",
         });
       });
     }
