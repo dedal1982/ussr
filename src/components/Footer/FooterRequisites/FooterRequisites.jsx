@@ -104,7 +104,6 @@ export const FooterRequisites = () => {
       >
         <div className="footer__contacts">
           <ul
-            tabIndex={0}
             className={`footer__contacts-list requisites-hover ${
               active ? "active" : ""
             }`}
@@ -119,7 +118,6 @@ export const FooterRequisites = () => {
             <li>д. 33, Бдок А, помещение V-13, комната 1</li>
           </ul>
           <ul
-            tabIndex={0}
             className={`footer__contacts-list requisites-hover ${
               active ? "active" : ""
             }`}
@@ -132,7 +130,6 @@ export const FooterRequisites = () => {
           </ul>
         </div>
         <ul
-          tabIndex={0}
           className={`footer__contacts-list bank-list requisites-hover ${
             active ? "active" : ""
           }`}
