@@ -39,7 +39,7 @@ button {
   /* max-width: 1920px; */
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0 auto;
   background-image: url(./assets/images/BG-OPT-PNG.png);
   background-repeat: no-repeat;
