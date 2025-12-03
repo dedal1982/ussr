@@ -17,6 +17,7 @@
 .footer__link {
   font-family: "Montserrat", sans-serif;
   font-weight: normal;
+  font-size: 1rem;
   color: #d5d5d5;
   cursor: pointer;
   display: block;

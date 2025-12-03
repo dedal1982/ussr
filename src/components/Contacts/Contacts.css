@@ -37,7 +37,7 @@
   justify-content: center;
   font-family: "Buyan", sans-serif;
   font-weight: normal;
-  font-size: 40px;
+  font-size: 2.5rem;
   text-transform: uppercase;
   color: #d5d5d5;
   border-bottom: 1px solid #d5d5d5;
@@ -70,6 +70,7 @@
 .contacts-phones li a {
   font-family: "Montserrat", sans-serif;
   font-weight: normal;
+  font-size: 1rem;
   color: #d5d5d5;
   transition: all 0.3s ease;
 }

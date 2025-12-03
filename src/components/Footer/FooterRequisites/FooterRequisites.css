@@ -30,6 +30,7 @@
 .footer__contacts-list li {
   font-family: "Montserrat", sans-serif;
   font-weight: normal;
+  font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
 }
